@@ -2,6 +2,7 @@ from dotenv import load_dotenv
 load_dotenv()
 #importa a rota aqui
 
+from src.application.controllers.CursoController import router_curso as curso_router
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI
 
@@ -18,8 +19,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# exemplo de rota
-#app.include_router(login_router)
+app.include_router(curso_router)
 
 
 @app.get('/')
