@@ -2,7 +2,7 @@ from domain.entities.Curso import Curso, CursoBase, CursoRequest, CursoResponse
 from domain.repositories.CursoRepositoryBaseModel import CursoRepositoryBaseModel
 from fastapi import HTTPException, status
 
-class CursoService():
+class CursoUseCase():
     __cursoRepository__: CursoRepositoryBaseModel
 
     def __init__(

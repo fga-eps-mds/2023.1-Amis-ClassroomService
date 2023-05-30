@@ -5,8 +5,8 @@ from fastapi import APIRouter, status, Depends, Response
 from src.domain.entities.Curso import CursoResponse, CursoRequest
 from ...infrastructure.repositories.CursoRepository import CursoRepository
 from ...domain.entities.Curso import Curso
-from ..useCases.CadastrarCursoUseCase import CursoService
-from application.controllers import  cursoService
+from ..useCases.CadastrarCursoUseCase import CursoUseCase
+from application.controllers import  cursoUseCase
 
 Base.metadata.create_all(bind=engine)
 
@@ -23,6 +23,6 @@ def create(curso_request: CursoRequest, database: Session = Depends(get_db)):
 
     curso_entitie = Curso(**curso_request.__dict__)
 
-    cursoService.save(cursoSent=curso_entitie)
+    cursoUseCase.save(cursoSent=curso_entitie)
 
     return curso_request
