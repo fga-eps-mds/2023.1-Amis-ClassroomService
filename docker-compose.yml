@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: ./
+    container_name: curso
+    ports:
+      - "9090:9090"
+    
+    volumes:
+      - ./:/app/
