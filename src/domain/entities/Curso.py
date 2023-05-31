@@ -2,8 +2,9 @@
 from sqlalchemy import Column, Integer, String
 from database import Base
 from pydantic import BaseModel
+from sqlalchemy.ext.declarative import declarative_base
 
-
+Base = declarative_base() 
 class Curso(Base):
     '''Classe para estabelecer o modelo na tabela DB'''
     __tablename__ = "curso"
