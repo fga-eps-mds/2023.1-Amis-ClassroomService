@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from fastapi import APIRouter, status, Depends, Response
 from src.domain.entities.Curso import CursoResponse, CursoRequest
 from ...infrastructure.repositories.CursoRepository import CursoRepository
-from ...domain.entities.Curso import Curso
+from ...domain.entities.Curso import Curso, CursoBase
 from ..useCases.CadastrarCursoUseCase import CursoUseCase
 from application.controllers import  cursoUseCase
 
@@ -26,3 +26,9 @@ def create(curso_request: CursoRequest, database: Session = Depends(get_db)):
     cursoUseCase.save(cursoSent=curso_entitie)
 
     return curso_request
+
+@router_curso.get("/", response_model=list[CursoBase])
+def find_all():
+    '''Faz uma query de todos os objetos assistente na DB (sem paginação)'''
+    curso = cursoUseCase.find_all()
+    return curso
