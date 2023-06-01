@@ -1,4 +1,4 @@
-from domain.entities.Curso import Curso, CursoResponse
+from domain.entities.Curso import Curso, CursoResponse, CursoBase
 from domain.repositories.CursoRepositoryBaseModel import CursoRepositoryBaseModel
 from fastapi import HTTPException, status
 
@@ -31,3 +31,6 @@ class CursoUseCase():
             )
             cursos.append(curso)
         return cursos
+
+    def find_by_id(self, curso_id : int) -> CursoBase | None:
+        return self.__cursoRepository__.find_by_id(curso_id=curso_id)

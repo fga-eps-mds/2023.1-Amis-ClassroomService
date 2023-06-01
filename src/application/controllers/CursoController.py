@@ -1,9 +1,10 @@
 from database import get_db
 from database import engine, Base
 from sqlalchemy.orm import Session
-from fastapi import APIRouter, status, Depends, Response
+from fastapi import APIRouter, status, Depends, Response, status, HTTPException
+
 from src.domain.entities.Curso import CursoResponse, CursoRequest
-from ...infrastructure.repositories.CursoRepository import CursoRepository
+from infrastructure.repositories.CursoRepository import CursoRepository
 from ...domain.repositories.CursoRepositoryBaseModel import CursoRepositoryBaseModel
 from ...domain.entities.Curso import Curso, CursoBase
 from ..useCases.CadastrarCursoUseCase import CursoUseCase
@@ -37,11 +38,20 @@ def delete(curso_request: CursoRequest, database: Session = Depends(get_db)):
 
     return
 
-
-
-
-@router_curso.get("/", response_model=list[CursoBase])
+@router_curso.get("/", response_model=list[CursoResponse])
 def find_all():
     '''Faz uma query de todos os objetos assistente na DB (sem paginação)'''
     curso = cursoUseCase.find_all()
+    return curso
+
+@router_curso.get("/{curso_id}",
+                  response_model=CursoResponse,
+                  status_code=status.HTTP_200_OK)
+def find_by_id(curso_id: int):
+    '''Faz uma query de um objeto assistente na DB pelo id'''
+    curso = cursoUseCase.find_by_id(curso_id)
+
+    if curso is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Curso não encontrado")
+
     return curso

@@ -28,6 +28,12 @@ class CursoRepository:
         res = session.query(Curso).all()
         session.close()
         return res
+    
+    def find_by_id(self, curso_id: int) -> Curso | None:
+        """Faz uma busca pelo id no banco e retorna o objeto"""
+        session = self.database()
+        session.close()
+        return session.query(Curso).filter(Curso.id == curso_id).first()
 
 assert isinstance(CursoRepository(
     {}), CursoRepositoryBaseModel.CursoRepositoryBaseModel)
