@@ -29,14 +29,16 @@ def create(curso_request: CursoRequest, database: Session = Depends(get_db)):
 
     return curso_request
 
-@router_curso.delete("/", status_code=status.HTTP_200_OK,)
-def delete(curso_request: CursoRequest, database: Session = Depends(get_db)):
+@router_curso.delete("/", status_code=status.HTTP_204_NO_CONTENT,)
+def delete(curso_id: int):
+    curso = cursoUseCase.find_by_id(curso_id)
+    if curso is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Curso não encontrado")
 
-    curso_entitie = CursoRepositoryBaseModel.delete_by_id(database, curso_request.id)
+    cursoUseCase.delete_by_id(id=curso.id)
 
-    CursoUseCase.delete(cursoSent=curso_entitie)
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
 
-    return
 
 @router_curso.get("/", response_model=list[CursoResponse])
 def find_all():

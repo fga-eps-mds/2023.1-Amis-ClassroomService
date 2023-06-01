@@ -2,6 +2,7 @@ from sqlalchemy.orm import Session
 from domain.entities.Curso import Curso
 from typing import Callable
 from domain.repositories import CursoRepositoryBaseModel
+from typing import NoReturn
 
 class CursoRepository:
 
@@ -28,7 +29,17 @@ class CursoRepository:
         res = session.query(Curso).all()
         session.close()
         return res
-    
+
+    def delete_by_id(self, curso_id: int) -> NoReturn:
+        session = self.database()
+        curso_session = session.query(Curso).filter(Curso.id == curso_id).first()
+
+        if curso_session is not None:
+            session.delete(curso_session)
+            session.commit()
+
+        session.close()
+
     def find_by_id(self, curso_id: int) -> Curso | None:
         """Faz uma busca pelo id no banco e retorna o objeto"""
         session = self.database()

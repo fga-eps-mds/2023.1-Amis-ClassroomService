@@ -15,8 +15,8 @@ class CursoUseCase():
         '''Função para salvar um objeto SocialWorker na DB, utilizada também como update'''
         return self.__cursoRepository__.save(cursoSent=cursoSent)
 
-    def delete(self, cursoSent: Curso) -> None:
-        return self.__cursoRepository__.delete_by_id(cursoSent=cursoSent)
+    def delete_by_id(self, id: int) -> None:
+        return self.__cursoRepository__.delete_by_id(curso_id=id)
 
 
     def find_all(self) -> list[CursoResponse]:
