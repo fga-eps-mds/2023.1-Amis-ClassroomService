@@ -4,7 +4,7 @@ from typing import Callable
 from domain.repositories import CursoRepositoryBaseModel
 
 class CursoRepository:
-    
+
     database: Callable[[], Session]
     def __init__(self, session: Callable[[], Session]):
         self.database = session
@@ -21,7 +21,7 @@ class CursoRepository:
         session.expunge_all()
         session.close()
         return cursoSent
-    
+
     def find_all(self) -> list[Curso]:
         '''Função para fazer uma query de todas as SocialWorker da DB'''
         session = self.database()
@@ -31,5 +31,3 @@ class CursoRepository:
 
 assert isinstance(CursoRepository(
     {}), CursoRepositoryBaseModel.CursoRepositoryBaseModel)
-
-    

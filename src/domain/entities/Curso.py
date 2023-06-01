@@ -25,7 +25,7 @@ class CursoRequest(CursoBase):
 
 
 class CursoResponse(CursoBase):
-    
+
     '''...'''
     id:int
     class Config:
