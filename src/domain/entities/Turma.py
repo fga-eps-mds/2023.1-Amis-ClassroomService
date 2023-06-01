@@ -30,9 +30,11 @@ class ClassRoomDB(Base):
 
 
 class ClassRoomRequest(ClassRoomDB):
-    pass    
+   '''...'''
+   pass    
 
 class ClassRoomResponse(ClassRoomDB):
+    '''...'''
     class Config:
         orm_mode = True
 

@@ -11,3 +11,4 @@ cursoRepository = CursoRepository(databaseSessionGenerator)
 cursoUseCase = CursoUseCase(
     cursoRepository=cursoRepository
 )
+
