@@ -1,5 +1,6 @@
 from pydantic import BaseModel
-from entities.Curso import Curso
+##from entities.Curso import Curso 
+from src.domain.entities.Curso import Curso 
 from enum import Enum
 from database import Base
 from sqlalchemy import Column, Integer, String, Boolean, ForeignKey, Index

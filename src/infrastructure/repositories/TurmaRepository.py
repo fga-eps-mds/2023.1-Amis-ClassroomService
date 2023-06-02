@@ -26,5 +26,8 @@ class ClassRoomRepository:
         session.close()
         return res
 
+
+
+
 assert isinstance(ClassRoomRepository(
     {}), ClassRoomRepositoryBaseModel.ClassRoomRepository)
