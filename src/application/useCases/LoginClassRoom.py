@@ -1,20 +1,20 @@
-from domain.repositories.TurmaRepositoryBaseModel import ClassRoomRepositoryBaseModel
-from domain.entities.Turma import ClassRoomDB, ClassRoomResponse
+from domain.repositories.ClassRoomRepositoryBaseModel import ClassRoomRepositoryBaseModel
+from domain.entities.ClassRoom import ClassRoomDB, ClassRoomResponse
 from fastapi import HTTPException, status 
 
-class ClassUseCase():
-    __TurmaRepository__: ClassRoomRepositoryBaseModel
+class ClassRoomUseCase():
+    __classRoomRepository__: ClassRoomRepositoryBaseModel
 
-    def __init__(self, classRepository: ClassRoomRepositoryBaseModel):
-        self.__TurmaRepository__ = classRepository
+    def __init__(self, classRoomRepository: ClassRoomRepositoryBaseModel):
+        self.__classRoomRepository__ = classRoomRepository
 
     def save_class(self, classSent: ClassRoomDB) -> ClassRoomDB:
 
-        return self.__TurmaRepository__.save_class(classSent=classSent)
+        return self.__classRoomRepository__.save_class(classSent=classSent)
 
     
     def find_all_class(self)-> list[ClassRoomResponse]:
-        classRoom_db = self.__TurmaRepository__.find_all_class()
+        classRoom_db = self.__classRoomRepository__.find_all_class()
         classRomns = []
         for classI_db in classRoom_db:
             classRoom = ClassRoomResponse(

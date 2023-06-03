@@ -1,4 +1,4 @@
-from domain.entities.Turma import ClassRoomDB
+from domain.entities.ClassRoom import ClassRoomDB, ClassRoomBase
 from sqlalchemy.orm import Session
 from typing import Protocol, runtime_checkable
 
@@ -14,11 +14,9 @@ class ClassRoomRepositoryBaseModel(Protocol):
     def find_all_class(self, database: Session)-> list[ClassRoomDB]:
         ...
 
-    def delete_by_codigo(self, codigo: str)-> None:
+    
+    def validate_classRoom(self, classRoomBase: ClassRoomBase)-> dict:
         ...
 
-    def update_class(self, database: Session, codigo: str, classSent: ClassRoomDB)-> ClassRoomDB:
-        ...
-
-    def find_by_codigo(self, database: Session, codigo: str)-> ClassRoomDB:
-        ... 
+    
+ 

@@ -25,7 +25,9 @@ def create(curso_request: CursoRequest, database: Session = Depends(get_db)):
 
     cursoUseCase.save(cursoSent=curso_entitie)
 
+    
     return curso_request
+
 
 @router_curso.get("/", response_model=list[CursoBase])
 def find_all():

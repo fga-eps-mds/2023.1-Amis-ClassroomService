@@ -3,6 +3,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from config import settings
 
+
 SQLALCHEMY_DATABASE_URL = settings.db_connect_url
 print(SQLALCHEMY_DATABASE_URL)
 engine = create_engine(
@@ -21,3 +22,4 @@ def get_db():
     finally:
         db.close()
     return db
+

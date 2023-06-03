@@ -3,7 +3,7 @@ load_dotenv()
 #importa a rota aqui
 
 from src.application.controllers.CursoController import router_curso as curso_router
-from src.application.controllers.TurmaController import router_classRoom as router_classRoom 
+from src.application.controllers.ClassRoomController import router_classRoom as router_classRoom 
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI
 

@@ -18,7 +18,7 @@ class ClassRoomBase(BaseModel):
     fim_aula:str 
     capacidade_turma:int
     fk_curso:int
-    professor:str 
+    fk_professor:str  
 
 # Pre requisito -> Crud prof 
 ##Classe turma sem atributos de curso e professor 
@@ -33,13 +33,13 @@ class ClassRoomDB(Base):
     data_fim: str= Column(String(10), nullable= False)
     inicio_aula:str = Column(String(10), nullable=False)
     fim_aula:str = Column(String(10), nullable=False)
-    capacidade_turma:int = Column(String(10), nullable=False)
-    fk_curso:int = Column(Integer, ForeignKey(Curso.id))
-    fk_professor:str = Column(String(), nullable=False)
+    capacidade_turma:int = Column(Integer, nullable=False)
+    fk_curso:int = Column(Integer, nullable=False)
+    fk_professor:str = Column(String(100), nullable=False)
 
-class ClassRoomRequest(ClassRoomDB):
+class ClassRoomRequest(ClassRoomBase):
    '''...'''
-   pass    
+   pass
 
 class ClassRoomResponse(ClassRoomDB):
     '''...'''
