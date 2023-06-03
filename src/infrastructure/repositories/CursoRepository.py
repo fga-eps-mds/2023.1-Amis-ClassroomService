@@ -14,14 +14,18 @@ class CursoRepository:
     def save(self, cursoSent: Curso) -> Curso:
         session = self.database()
         # TODO : verificar se o URM possui isso built in
-        #if self.find_by_login(socialWorkerSent.login):
-        #    session.merge(socialWorkerSent)
-        #else:
         session.add(cursoSent)
         session.commit()
         session.expunge_all()
         session.close()
         return cursoSent
+
+    def update(self, cursoSent: Curso) -> NoReturn:
+        session = self.database()
+        session.merge(cursoSent)
+        session.commit()
+        session.expunge_all()
+        session.close()
 
     def find_all(self) -> list[Curso]:
         '''Função para fazer uma query de todas as SocialWorker da DB'''

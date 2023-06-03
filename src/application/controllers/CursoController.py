@@ -1,13 +1,9 @@
-from database import get_db
 from database import engine, Base
-from sqlalchemy.orm import Session
-from fastapi import APIRouter, status, Depends, Response, status, HTTPException
-
-from src.domain.entities.Curso import CursoResponse, CursoRequest
-from infrastructure.repositories.CursoRepository import CursoRepository
-from ...domain.repositories.CursoRepositoryBaseModel import CursoRepositoryBaseModel
-from ...domain.entities.Curso import Curso, CursoBase
-from ..useCases.CadastrarCursoUseCase import CursoUseCase
+from fastapi import APIRouter, status, Response, status, HTTPException
+from domain.entities.Curso import (CursoResponse,
+                                   CursoRequest,
+                                   Curso,
+                                   CursoRequestId)
 from application.controllers import  cursoUseCase
 
 Base.metadata.create_all(bind=engine)
@@ -20,8 +16,8 @@ router_curso = APIRouter(
 
 
 
-@router_curso.post("/", status_code=status.HTTP_201_CREATED,)
-def create(curso_request: CursoRequest, database: Session = Depends(get_db)):
+@router_curso.post("/", status_code=status.HTTP_201_CREATED)
+def create(curso_request: CursoRequest):
 
     curso_entitie = Curso(**curso_request.__dict__)
 
@@ -29,7 +25,15 @@ def create(curso_request: CursoRequest, database: Session = Depends(get_db)):
 
     return curso_request
 
-@router_curso.delete("/", status_code=status.HTTP_204_NO_CONTENT,)
+@router_curso.put("/", status_code=status.HTTP_201_CREATED)
+def update(cursoSent: CursoRequestId):
+    if cursoUseCase.find_by_id(cursoSent.id) is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND,
+                            detail="Curso não existente")
+    cursoUseCase.update(cursoSent)
+
+
+@router_curso.delete("/", status_code=status.HTTP_204_NO_CONTENT)
 def delete(curso_id: int):
     curso = cursoUseCase.find_by_id(curso_id)
     if curso is None:

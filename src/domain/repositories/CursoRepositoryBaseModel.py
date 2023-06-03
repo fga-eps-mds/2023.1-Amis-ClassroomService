@@ -7,11 +7,17 @@ from typing import Protocol, runtime_checkable, NoReturn
 @runtime_checkable
 class CursoRepositoryBaseModel(Protocol):
 
-    def save(self, database: Session, cursoSent: Curso) -> Curso:
+    def save(self, cursoSent: Curso) -> Curso:
         '''Função para salvar um objeto assistente na DB'''
+        ...
+
+    def update(self, cursoSent: Curso) -> NoReturn:
+        """Funçãop para atualizar um Curso, assume que o curso já existe."""
+        ...
 
     def delete_by_id(self, curso_id: int)-> NoReturn:
         '''Função para apagar um curso do banco pelo id'''
+        ...
 
     def find_all(self, database: Session) -> list[Curso]:
         '''Função para fazer uma query de todas as SocialWorker da DB'''
