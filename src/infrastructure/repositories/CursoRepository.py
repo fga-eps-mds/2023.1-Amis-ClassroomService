@@ -31,6 +31,7 @@ class CursoRepository:
         return res
 
     def delete_by_id(self, curso_id: int) -> NoReturn:
+        """Função para deletar um curso do DB, caso exista"""
         session = self.database()
         curso_session = session.query(Curso).filter(Curso.id == curso_id).first()
 
