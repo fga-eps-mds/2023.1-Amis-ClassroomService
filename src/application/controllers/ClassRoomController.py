@@ -22,7 +22,7 @@ router_classRoom = APIRouter(
 
 )
 
-
+#Funfando
 @router_classRoom.post("/", status_code=status.HTTP_201_CREATED)
 def create_classRoom(class_request: ClassRoomRequest ,database: Session = Depends(get_db)):
     fieldsValidation = classUseCase.validate_classRoom(class_request)
@@ -32,14 +32,15 @@ def create_classRoom(class_request: ClassRoomRequest ,database: Session = Depend
 
     return class_request    
 
-
+## Funfando
 @router_classRoom.get("/", response_model= list[ClassRoomBase])
 def find_all_classRoom():
     classRoomFind = classUseCase.find_all_class()
     return classRoomFind
 
 
-@router_classRoom.get("/",response_model= ClassRoomResponse, status_code= status.HTTP_200_OK)
+##Funfando
+@router_classRoom.get("/{codigo}",response_model= ClassRoomResponse, status_code= status.HTTP_200_OK)
 def find_classRoom_codigo(codigo : int ):
     classRoom = classUseCase.find_classRoom_codigo(codigo)
     
@@ -48,7 +49,8 @@ def find_classRoom_codigo(codigo : int ):
             statusCode= status.HTTP_404_NOT_FOUND, detail = "Turma não encontrada"
         )
     
-    return ClassRoomResponse.from_orm(classRoom)
+    return ClassRoomResponse.from_orm(classRoom) 
+
 
 @router_classRoom.put("/")
 def update_classRoom():
@@ -56,6 +58,6 @@ def update_classRoom():
 
 
 @router_classRoom.delete("/")
-def delete_classRoom():
+def delete_classRoom_codigo():
     
     return {"message" : "Deletado "}
