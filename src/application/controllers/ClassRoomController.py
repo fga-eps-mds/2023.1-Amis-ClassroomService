@@ -3,7 +3,7 @@ from database import get_db
 from database import Base, engine  
 from domain.entities.ClassRoom import ClassRoomBase, ClassRoomDB
 from domain.entities.ClassRoom import ClassRoomRequest, ClassRoomResponse , ClassRoomRequestCodigo
-from fastapi import APIRouter, status, HTTPException, Form, Depends
+from fastapi import APIRouter, status, HTTPException, Form, Depends, Response
 from application.useCases.LoginClassRoomUseCase import ClassRoomUseCase
 from application.useCases import LoginClassRoomUseCase
 
@@ -61,7 +61,12 @@ def update_classRoom(classSent : ClassRoomRequestCodigo):
 
 
 
-@router_classRoom.delete("/")
-def delete_classRoom_codigo():
+@router_classRoom.delete("/", status_code=status.HTTP_204_NO_CONTENT)
+def delete_classRoom_codigo(codigo:int):
+    classRoom = classUseCase.find_classRoom_codigo(codigo)
+    if classRoom is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail="Turma não encontrada" )
     
-    return {"message" : "Deletado "}
+    classUseCase.delete_classRoom_codigo(codigo=codigo)
+    return Response(status_code=status.HTTP_204_NO_CONTENT)

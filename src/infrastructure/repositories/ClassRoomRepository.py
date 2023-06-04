@@ -2,7 +2,7 @@ from sqlalchemy.orm import Session
 from domain.entities.ClassRoom import ClassRoomDB
 from domain.repositories import ClassRoomRepositoryBaseModel
 from infrastructure.repositories.field_repository import FieldValidation
-from typing import Callable
+from typing import Callable, NoReturn
 
 class ClassRoomRepository:
 
@@ -31,13 +31,24 @@ class ClassRoomRepository:
         return session.query(ClassRoomDB).filter(ClassRoomDB.codigo == codigo).first()
 
 
-    def update_classRoom(self, classSent: ClassRoomDB):
+    def update_classRoom(self, classSent: ClassRoomDB)-> NoReturn:
         session = self.database()
         session.merge(classSent)
         session.commit()
         session.expunge_all()
         session.close()
 
+
+    def delete_classRoom_codigo(self, codigo:int)-> NoReturn:
+        session = self.database()
+        classRoomSession = session.query(ClassRoomDB).filter(ClassRoomDB.codigo == codigo).first()
+
+        if classRoomSession is not None:
+            session.delete(classRoomSession)
+            session.commit()
+        session.close()
+        
+            
 
     def validate_classRoom(self, classRoom: ClassRoomDB) -> dict:
         fieldInfoDict = {}

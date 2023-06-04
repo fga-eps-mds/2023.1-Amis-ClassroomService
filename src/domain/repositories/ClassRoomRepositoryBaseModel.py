@@ -20,6 +20,9 @@ class ClassRoomRepositoryBaseModel(Protocol):
     def update_classRoom(self, classSent = ClassRoomDB)-> NoReturn:
         ...
 
+    def delete_classRoom_codigo(self, codigo:int)-> NoReturn:
+        ...
+
     def validate_classRoom(self, classRoomBase: ClassRoomBase)-> dict:
         ...
 

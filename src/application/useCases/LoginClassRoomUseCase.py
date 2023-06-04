@@ -38,6 +38,9 @@ class ClassRoomUseCase():
     def update_classRoom(self, classSent:ClassRoomRequestCodigo):
         self.__classRoomRepository__.update_classRoom(ClassRoomDB(**classSent.__dict__))   
     
+    def delete_classRoom_codigo(self, codigo:int) -> None:
+        return self.__classRoomRepository__.delete_classRoom_codigo(codigo=codigo)
+
     def validate_classRoom(self, classRoom: ClassRoomDB) -> dict:
         fieldInfoDict = {}
         fieldInfoDict["nomeTurma"] = vars(FieldValidation.nomeTurmaValidation(
