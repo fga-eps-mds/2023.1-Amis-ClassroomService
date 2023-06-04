@@ -2,7 +2,7 @@ from sqlalchemy.orm import Session
 from database import get_db 
 from database import Base, engine  
 from domain.entities.ClassRoom import ClassRoomBase, ClassRoomDB
-from domain.entities.ClassRoom import ClassRoomRequest, ClassRoomResponse
+from domain.entities.ClassRoom import ClassRoomRequest, ClassRoomResponse , ClassRoomRequestCodigo
 from fastapi import APIRouter, status, HTTPException, Form, Depends
 from application.useCases.LoginClassRoomUseCase import ClassRoomUseCase
 from application.useCases import LoginClassRoomUseCase
@@ -52,9 +52,13 @@ def find_classRoom_codigo(codigo : int ):
     return ClassRoomResponse.from_orm(classRoom) 
 
 
-@router_classRoom.put("/")
-def update_classRoom():
-    return {"mds"}
+@router_classRoom.put("/", status_code=status.HTTP_201_CREATED)
+def update_classRoom(classSent : ClassRoomRequestCodigo):
+    if classUseCase.find_classRoom_codigo(classSent.codigo) is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, 
+                            detail = "Turma não encontrada")
+    classUseCase.update_classRoom(classSent)
+
 
 
 @router_classRoom.delete("/")

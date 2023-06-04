@@ -1,5 +1,5 @@
 from domain.repositories.ClassRoomRepositoryBaseModel import ClassRoomRepositoryBaseModel
-from domain.entities.ClassRoom import ClassRoomDB, ClassRoomResponse, ClassRoomBase
+from domain.entities.ClassRoom import  ClassRoomRequestCodigo, ClassRoomDB, ClassRoomResponse, ClassRoomBase
 from fastapi import HTTPException, status 
 
 from infrastructure.repositories.field_repository import FieldValidation 
@@ -30,12 +30,14 @@ class ClassRoomUseCase():
                 fk_professor = classI_db.fk_professor
             )
             classRomns.append(classRoom)
-        return classRomns    
-    
+        return classRomns 
+
     def find_classRoom_codigo(self, codigo:int) ->ClassRoomBase | None:
         return self.__classRoomRepository__.find_classRoom_codigo(codigo=codigo)
 
-
+    def update_classRoom(self, classSent:ClassRoomRequestCodigo):
+        self.__classRoomRepository__.update_classRoom(ClassRoomDB(**classSent.__dict__))   
+    
     def validate_classRoom(self, classRoom: ClassRoomDB) -> dict:
         fieldInfoDict = {}
         fieldInfoDict["nomeTurma"] = vars(FieldValidation.nomeTurmaValidation(
