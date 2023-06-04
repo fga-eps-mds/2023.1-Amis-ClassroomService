@@ -25,7 +25,7 @@ class FieldValidation:
         if len(data_inicio) > 10:
             return fieldInfo(False, "Data de inicio Errada")
         pattern = r'^\d{4}-\d{2}-\d{2}$'        
-        if not re.match(pattern=data_inicio):
+        if not re.match(pattern, data_inicio):
             return fieldInfo(False, "Formato de dataInicio invalido")
         
         try:
@@ -42,7 +42,7 @@ class FieldValidation:
             return fieldInfo(False, "Data de fim Errada")
         pattern = r'^\d{4}-\d{2}-\d{2}$'
         
-        if not re.match(pattern=data_fim):
+        if not re.match(pattern,data_fim):
             return fieldInfo(False, "Formato de dataFim invalido")
         try:
             datetime.strptime(data_fim,'%Y-%m-%d') 
@@ -71,3 +71,17 @@ class FieldValidation:
         if len(fk_professor) > 100:
             return fieldInfo(False, "Professor muito grande")
         return fieldInfo(True, "Professor esta certo")
+    
+
+    @classmethod 
+    def capacidadeValidation(cls, capacidade: int)-> fieldInfo:
+        if capacidade == 0:
+            return fieldInfo(False, "A capacidade não pode ser nula") 
+        return fieldInfo(True, "Capacidade valida")
+    
+    @classmethod
+    def codigoValidation(cls, codigo: int):
+        if codigo == 0:
+            return fieldInfo(False, "A codigo não pode ser nulo") 
+        return fieldInfo(True, "Codigo valida")
+    

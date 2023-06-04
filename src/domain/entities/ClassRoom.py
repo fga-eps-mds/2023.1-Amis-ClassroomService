@@ -23,25 +23,25 @@ class ClassRoomBase(BaseModel):
 # Pre requisito -> Crud prof 
 ##Classe turma sem atributos de curso e professor 
 class ClassRoomDB(Base):
-    __tablename__= "class"
+    __tablename__= "classRoom"
     __table_args__ = {"extend_existing": True}
-
-
-    codigo:int = Column(Integer(), primary_key= True , nullable= False)
+        
+    codigo: int = Column(Integer, primary_key= True , nullable= False)
     nome_turma: str = Column(String(70), nullable= False)
     data_inicio: str= Column(String(10), nullable= False)
     data_fim: str= Column(String(10), nullable= False)
-    inicio_aula:str = Column(String(10), nullable=False)
-    fim_aula:str = Column(String(10), nullable=False)
-    capacidade_turma:int = Column(Integer, nullable=False)
-    fk_curso:int = Column(Integer, nullable=False)
-    fk_professor:str = Column(String(100), nullable=False)
+    inicio_aula: str = Column(String(10), nullable=False)
+    fim_aula: str = Column(String(10), nullable=False)
+    capacidade_turma: int = Column(Integer, nullable=False)
+    fk_curso: int = Column(Integer, nullable=False)
+    fk_professor: str = Column(String(100), nullable=False)
+    
 
 class ClassRoomRequest(ClassRoomBase):
    '''...'''
    pass
 
-class ClassRoomResponse(ClassRoomDB):
+class ClassRoomResponse(ClassRoomBase):
     '''...'''
     class Config:
         orm_mode = True

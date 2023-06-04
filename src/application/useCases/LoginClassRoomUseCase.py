@@ -2,6 +2,8 @@ from domain.repositories.ClassRoomRepositoryBaseModel import ClassRoomRepository
 from domain.entities.ClassRoom import ClassRoomDB, ClassRoomResponse
 from fastapi import HTTPException, status 
 
+from infrastructure.repositories.field_repository import FieldValidation 
+
 class ClassRoomUseCase():
     __classRoomRepository__: ClassRoomRepositoryBaseModel
 
@@ -31,10 +33,33 @@ class ClassRoomUseCase():
             classRomns.append(classRoom)
         return classRomns    
             
+    def validate_classRoom(self, classRoom: ClassRoomDB) -> dict:
+        fieldInfoDict = {}
+        fieldInfoDict["nomeTurma"] = vars(FieldValidation.nomeTurmaValidation(
+            classRoom.nome_turma
+        ))
+        fieldInfoDict["dataInicio"] = vars(FieldValidation.data_inicio(
+            classRoom.data_inicio
+        ))
+        fieldInfoDict["dataFim"] = vars(FieldValidation.data_fim(
+            classRoom.data_fim
+        ))
+        fieldInfoDict["inicioAula"] = vars(FieldValidation.inicioAulaValidation(
+            classRoom.inicio_aula
+        ))
+        fieldInfoDict["fimAula"] = vars(FieldValidation.fimAulaValidation(
+            classRoom.fim_aula
+        ))
+        fieldInfoDict["Professor"] = vars(FieldValidation.professorValidation(
+            classRoom.fk_professor
+        ))
 
+        completeStatus = True
+        for key in fieldInfoDict:
+            if fieldInfoDict[key]['status'] == False:
+                completeStatus = False
+                break
+        fieldInfoDict['completeStatus'] = completeStatus    
 
-
-
-
-
+        return fieldInfoDict
 

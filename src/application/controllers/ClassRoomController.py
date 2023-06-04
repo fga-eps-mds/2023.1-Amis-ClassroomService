@@ -4,10 +4,12 @@ from database import Base, engine
 from domain.entities.ClassRoom import ClassRoomBase, ClassRoomDB
 from domain.entities.ClassRoom import ClassRoomRequest, ClassRoomResponse
 from fastapi import APIRouter, status, HTTPException, Form, Depends
-from application.useCases.LoginClassRoom import ClassRoomUseCase
-from application.useCases import LoginClassRoom
+from application.useCases.LoginClassRoomUseCase import ClassRoomUseCase
+from application.useCases import LoginClassRoomUseCase
 
 from application.controllers import classUseCase
+
+from sqlalchemy import MetaData
 
 Base.metadata.create_all(bind=engine)
 
@@ -22,27 +24,29 @@ router_classRoom = APIRouter(
 
 
 @router_classRoom.post("/",status_code=status.HTTP_201_CREATED)
-def create_classRoom(class_request: ClassRoomRequest, database: Session = Depends(get_db)):
-    
+def create_classRoom(class_request: ClassRoomRequest, responde_model:ClassRoomResponse  ,database: Session = Depends(get_db)):
+    fieldsValidation = classUseCase.validate_classRoom(class_request)
+   
+   
+   
     class_entitie = ClassRoomDB(**class_request.dict())
     classUseCase.save_class(classSent=class_entitie)
 
     return class_entitie    
 
-
 @router_classRoom.get("/")
 def find_all_classRoom():
+    classRoomDB = classUseCase.find_all_class()
+    return classRoomDB 
 
-    return {"message": "Listado "}
 
-
-@router_classRoom.put("/update")
+@router_classRoom.put("/")
 async def update_classRoom():
     
     return {"message" : "Atualizado "}
 
 
-@router_classRoom.delete("/delete")
+@router_classRoom.delete("/")
 async def delete_classRoom():
     
     return {"message" : "Deletado "}

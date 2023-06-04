@@ -1,6 +1,6 @@
 from database import get_db
 from application.useCases.CadastrarCursoUseCase import CursoUseCase
-from application.useCases.LoginClassRoom import ClassRoomUseCase 
+from application.useCases.LoginClassRoomUseCase import ClassRoomUseCase 
 
 from infrastructure.repositories.CursoRepository import CursoRepository
 from infrastructure.repositories.ClassRoomRepository import ClassRoomRepository 

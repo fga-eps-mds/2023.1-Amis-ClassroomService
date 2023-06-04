@@ -47,7 +47,15 @@ class ClassRoomRepository:
             classRoom.fk_professor
         ))
         
+        completeStatus = True
+        for key in fieldInfoDict:
+            if fieldInfoDict[key]['status'] == False:
+                completeStatus = False
+                break
+        fieldInfoDict['completeStatus'] == completeStatus    
 
+        return fieldInfoDict
+        
 assert isinstance(ClassRoomRepository(
     {}), ClassRoomRepositoryBaseModel.ClassRoomRepositoryBaseModel)    
 
