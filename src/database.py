@@ -24,4 +24,4 @@ def get_db():
     return db
 
 def createTables():
-    Base.metadata.create_all(bind=engine)
+    Base.metadata.create_all(bind=engine) 

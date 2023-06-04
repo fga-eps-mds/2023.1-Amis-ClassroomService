@@ -2,7 +2,7 @@ from pydantic import BaseModel
 ##from entities.Curso import Curso 
 from src.domain.entities.Curso import Curso 
 from enum import Enum
-from database import Base
+from database import Base, SessionLocal, engine
 from sqlalchemy import Column, Integer, String, Boolean, ForeignKey, Index
 from sqlalchemy import Column, Enum 
 from sqlalchemy.ext.declarative import declarative_base
@@ -33,9 +33,11 @@ class ClassRoomDB(Base):
     inicio_aula: str = Column(String(10), nullable=False)
     fim_aula: str = Column(String(10), nullable=False)
     capacidade_turma: int = Column(Integer, nullable=False)
-    fk_curso: int = Column(Integer, nullable=False)
+    fk_curso: int = Column(Integer, nullable=False,)
     fk_professor: str = Column(String(100), nullable=False)
     
+##sessionLocal = SessionLocal()    
+Base.metadata.create_all(engine)
 
 class ClassRoomRequest(ClassRoomBase):
    '''...'''
@@ -46,6 +48,8 @@ class ClassRoomResponse(ClassRoomBase):
     class Config:
         orm_mode = True
 
+class ClassRoomRequestCodigo(ClassRoomBase):
+    codigo: int 
 
 
 

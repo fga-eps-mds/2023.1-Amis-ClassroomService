@@ -23,30 +23,39 @@ router_classRoom = APIRouter(
 )
 
 
-@router_classRoom.post("/",status_code=status.HTTP_201_CREATED)
-def create_classRoom(class_request: ClassRoomRequest, responde_model:ClassRoomResponse  ,database: Session = Depends(get_db)):
+@router_classRoom.post("/", status_code=status.HTTP_201_CREATED)
+def create_classRoom(class_request: ClassRoomRequest ,database: Session = Depends(get_db)):
     fieldsValidation = classUseCase.validate_classRoom(class_request)
-   
-   
    
     class_entitie = ClassRoomDB(**class_request.dict())
     classUseCase.save_class(classSent=class_entitie)
 
-    return class_entitie    
+    return class_request    
 
-@router_classRoom.get("/")
+
+@router_classRoom.get("/", response_model= list[ClassRoomBase])
 def find_all_classRoom():
-    classRoomDB = classUseCase.find_all_class()
-    return classRoomDB 
+    classRoomFind = classUseCase.find_all_class()
+    return classRoomFind
 
+
+@router_classRoom.get("/",response_model= ClassRoomResponse, status_code= status.HTTP_200_OK)
+def find_classRoom_codigo(codigo : int ):
+    classRoom = classUseCase.find_classRoom_codigo(codigo)
+    
+    if not classRoom:
+        raise HTTPException(
+            statusCode= status.HTTP_404_NOT_FOUND, detail = "Turma não encontrada"
+        )
+    
+    return ClassRoomResponse.from_orm(classRoom)
 
 @router_classRoom.put("/")
-async def update_classRoom():
-    
-    return {"message" : "Atualizado "}
+def update_classRoom():
+    return {"mds"}
 
 
 @router_classRoom.delete("/")
-async def delete_classRoom():
+def delete_classRoom():
     
     return {"message" : "Deletado "}

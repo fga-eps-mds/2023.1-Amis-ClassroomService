@@ -26,6 +26,19 @@ class ClassRoomRepository:
         session.close()
         return res
 
+    def find_classRoom_codigo(self, codigo:int)-> ClassRoomDB | None:
+        session = self.database()
+        return session.query(ClassRoomDB).filter(ClassRoomDB.codigo == codigo).first()
+
+
+    def update_classRoom(self, classSent: ClassRoomDB):
+        session = self.database()
+        session.merge(classSent)
+        session.commit()
+        session.expunge_all()
+        session.close()
+
+
     def validate_classRoom(self, classRoom: ClassRoomDB) -> dict:
         fieldInfoDict = {}
         fieldInfoDict["nomeTurma"] = vars(FieldValidation.nomeTurmaValidation(

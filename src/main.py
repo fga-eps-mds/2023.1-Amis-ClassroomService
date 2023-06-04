@@ -15,7 +15,7 @@ app = FastAPI()
 
 createTables()
 
-
+ 
 origins = ["*"]
 
 app.add_middleware(
