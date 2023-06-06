@@ -25,7 +25,7 @@ def create(curso_request: CursoRequest):
 
     return curso_request
 
-@router_curso.put("/", status_code=status.HTTP_201_CREATED)
+@router_curso.put("/{id}", status_code=status.HTTP_201_CREATED)
 def update(cursoSent: CursoRequestId):
     if cursoUseCase.find_by_id(cursoSent.id) is None:
         raise HTTPException(status.HTTP_404_NOT_FOUND,
@@ -33,7 +33,7 @@ def update(cursoSent: CursoRequestId):
     cursoUseCase.update(cursoSent)
 
 
-@router_curso.delete("/", status_code=status.HTTP_204_NO_CONTENT)
+@router_curso.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete(curso_id: int):
     curso = cursoUseCase.find_by_id(curso_id)
     if curso is None:
