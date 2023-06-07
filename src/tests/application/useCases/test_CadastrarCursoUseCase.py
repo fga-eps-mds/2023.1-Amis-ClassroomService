@@ -55,10 +55,12 @@ curso_use_case = CursoUseCase(
 def test_save_curso_valido(id: int, nome: str, descricao: str, duracaoHoras: int):
     """Testa se o curso é salvo com sucesso, assume que sempre recebe um curso válido"""
     curso_sent = Curso(
-        id=42,
-        nome="Curso Teste !",
-        descricao="Curso para fins de teste !",
-        duracaoHoras=1,
+        id=id,
+        nome=descricao,
+        descricao=descricao,
+        duracaoHoras=duracaoHoras,
     )
+    print(curso_sent.__dict__)
     response = curso_use_case.save(cursoSent=curso_sent)
     assert curso_sent == response, response.__dict__
+
