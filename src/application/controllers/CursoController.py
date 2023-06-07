@@ -53,9 +53,9 @@ def find_all():
 @router_curso.get("/{id}",
                   response_model=CursoResponse,
                   status_code=status.HTTP_200_OK)
-def find_by_id(curso_id: int):
+def find_by_id(id: int):
     '''Faz uma query de um objeto assistente na DB pelo id'''
-    curso = cursoUseCase.find_by_id(curso_id)
+    curso = cursoUseCase.find_by_id(id)
 
     if curso is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Curso não encontrado")
