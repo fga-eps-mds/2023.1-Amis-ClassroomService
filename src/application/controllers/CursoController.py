@@ -50,7 +50,7 @@ def find_all():
     curso = cursoUseCase.find_all()
     return curso
 
-@router_curso.get("/{curso_id}",
+@router_curso.get("/{id}",
                   response_model=CursoResponse,
                   status_code=status.HTTP_200_OK)
 def find_by_id(curso_id: int):
