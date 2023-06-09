@@ -8,5 +8,9 @@ pytest
 httpx
 pytest-asyncio
 coverage
+python-jose
 passlib
+python-multipart
+datetime
 requests
+mock-alchemy
