@@ -5,6 +5,6 @@ services:
     container_name: amis-classroom-service
     build: .
     ports:
-      - "8080:8080"
+      - "9091:9091"
     volumes:
       - ./:/app
