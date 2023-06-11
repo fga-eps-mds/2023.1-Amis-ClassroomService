@@ -6,13 +6,13 @@ from pydantic import BaseModel
 class InstrucaoCapacitacao(Base):
     '''Classe para estabelecer o modelo na tabela DB'''
     __tablename__ = "instrucaoCapacitacao"
-    __table_args__ = {"extend_existing": True}
+
 
     idCurso: int = Column("idCurso", ForeignKey("curso.id"), index=True)
     id: int = Column(Integer, primary_key = True, index = True)
     nome : str = Column(String(70), nullable = False)
     descricao : str = Column(String(800), nullable = False)
-    dataCadastro : str= Column(Date, nullable = False)
+    dataCadastro : str= Column(String(20), nullable = False)
 
 
 class InstrucaoCapacitacaoBase(BaseModel):
