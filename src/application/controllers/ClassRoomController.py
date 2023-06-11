@@ -52,7 +52,7 @@ def find_classRoom_codigo(codigo : int ):
     return ClassRoomResponse.from_orm(classRoom) 
 
 
-@router_classRoom.put("/", status_code=status.HTTP_201_CREATED)
+@router_classRoom.put("/{codigo}", status_code=status.HTTP_201_CREATED)
 def update_classRoom(classSent : ClassRoomRequestCodigo):
     if classUseCase.find_classRoom_codigo(classSent.codigo) is None:
         raise HTTPException(status.HTTP_404_NOT_FOUND, 
