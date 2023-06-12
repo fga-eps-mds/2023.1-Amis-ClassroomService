@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 from domain.entities.InstrucaoCapacitacao import InstrucaoCapacitacao
-from typing import Callable
+from typing import Callable, NoReturn
 from domain.repositories import InstrucaoCapacitacaoRepositoryBaseModel
 
 
@@ -20,6 +20,22 @@ class InstrucaoCapacitacaoRepository:
         session.expunge_all()
         session.close()
         return instrucaoCapacitacaoSent
+
+    def delete_by_id(self, instrucaoId: int) -> NoReturn:
+        """Deleta uma instrução de capacitação dado o seu id"""
+        session = self.database()
+
+        response = (
+            session.query(InstrucaoCapacitacao)
+            .filter(InstrucaoCapacitacao.id == instrucaoId)
+            .first()
+        )
+
+        if response is not None:
+            session.delete(response)
+            session.commit()
+
+        session.close()
 
 
 assert isinstance(

@@ -1,8 +1,13 @@
-from domain.entities.InstrucaoCapacitacao import InstrucaoCapacitacao, InstrucaoCapacitacaoRequest, InstrucaoCapacitacaoBase, InstrucaoCapacitacaoRequestId
-from domain.repositories.InstrucaoCapacitacaoRepositoryBaseModel import InstrucaoCapacitacaoRepositoryBaseModel
+from domain.entities.InstrucaoCapacitacao import (
+    InstrucaoCapacitacao,
+)
+from domain.repositories.InstrucaoCapacitacaoRepositoryBaseModel import (
+    InstrucaoCapacitacaoRepositoryBaseModel,
+)
 from typing import NoReturn
 
-class InstrucaoCapacitacaoUseCase():
+
+class InstrucaoCapacitacaoUseCase:
     __instrucaoCapacitacaoRepository__: InstrucaoCapacitacaoRepositoryBaseModel
 
     def __init__(
@@ -11,8 +16,16 @@ class InstrucaoCapacitacaoUseCase():
     ):
         self.__instrucaoCapacitacaoRepository__ = instrucaoCapacitacaoRepository
 
-    def save(self, instrucaoCapacitacaoSent: InstrucaoCapacitacao) -> InstrucaoCapacitacao:
-        '''Função para salvar um objeto SocialWorker na DB, utilizada também como update'''
-        return self.__instrucaoCapacitacaoRepository__.save(instrucaoCapacitacaoSent=instrucaoCapacitacaoSent)
+    def save(
+        self, instrucaoCapacitacaoSent: InstrucaoCapacitacao
+    ) -> InstrucaoCapacitacao:
+        """Salva uma instrução de capacitação no banco de dados"""
+        return self.__instrucaoCapacitacaoRepository__.save(
+            instrucaoCapacitacaoSent=instrucaoCapacitacaoSent
+        )
 
-    
+    def delete_by_id(self, instrucaoId: int) -> NoReturn:
+        """Deleta uma instrução de capacitação no banco de dados,
+        dado seu id"""
+        self.__instrucaoCapacitacaoRepository__.delete_by_id(
+            instrucaoId=instrucaoId)
