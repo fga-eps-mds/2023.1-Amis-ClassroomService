@@ -12,16 +12,39 @@ class InstrucaoCapacitacaoRepository:
 
     def save(
         self, instrucaoCapacitacaoSent: InstrucaoCapacitacao
-    ) -> InstrucaoCapacitacao:
+    ) -> InstrucaoCapacitacao | None:
         # TODO : verificar se o URM possui isso built in
         session = self.database()
-        session.add(instrucaoCapacitacaoSent)
-        session.commit()
-        session.expunge_all()
-        session.close()
+        try:
+            session.add(instrucaoCapacitacaoSent)
+            session.commit()
+            session.expunge_all()
+            session.close()
+        except Exception as e:
+            print(e)
+            return None
+        finally:
+            session.close()
         return instrucaoCapacitacaoSent
 
-    def delete_by_id(self, instrucaoId: int) -> NoReturn:
+    def update(
+        self, instrucaoCapacitacaoSent: InstrucaoCapacitacao
+    ) -> InstrucaoCapacitacao | None:
+        session = self.database()
+        try:
+            session.merge(instrucaoCapacitacaoSent)
+            session.commit()
+            session.expunge_all()
+            session.close()
+        except Exception as e:
+            print(e)
+            return None
+        finally:
+            session.close()
+
+        return instrucaoCapacitacaoSent
+
+    def delete_by_id(self, instrucaoId: int) -> None:
         """Deleta uma instrução de capacitação dado o seu id"""
         session = self.database()
 

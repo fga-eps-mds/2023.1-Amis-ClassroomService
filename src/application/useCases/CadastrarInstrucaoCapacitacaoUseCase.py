@@ -11,8 +11,7 @@ class InstrucaoCapacitacaoUseCase:
     __instrucaoCapacitacaoRepository__: InstrucaoCapacitacaoRepositoryBaseModel
 
     def __init__(
-        self,
-        instrucaoCapacitacaoRepository: InstrucaoCapacitacaoRepositoryBaseModel
+        self, instrucaoCapacitacaoRepository: InstrucaoCapacitacaoRepositoryBaseModel
     ):
         self.__instrucaoCapacitacaoRepository__ = instrucaoCapacitacaoRepository
 
@@ -21,6 +20,14 @@ class InstrucaoCapacitacaoUseCase:
     ) -> InstrucaoCapacitacao:
         """Salva uma instrução de capacitação no banco de dados"""
         return self.__instrucaoCapacitacaoRepository__.save(
+            instrucaoCapacitacaoSent=instrucaoCapacitacaoSent
+        )
+
+    def update(
+        self, instrucaoCapacitacaoSent: InstrucaoCapacitacao
+    ) -> InstrucaoCapacitacao:
+        """Atualiza uma instrução de capacitação no banco de dados"""
+        return self.__instrucaoCapacitacaoRepository__.update(
             instrucaoCapacitacaoSent=instrucaoCapacitacaoSent
         )
 

@@ -48,13 +48,20 @@ def read_by_id(idCurso: int) -> list[InstrucaoCapacitacaoResponse]:
 
 # UPDATE
 @router_instrucao.post("/update", status_code=status.HTTP_201_CREATED)
-def update(instrucaoCapacitacao_sent: InstrucaoCapacitacaoRequest):
-    raise HTTPException(status_code=status.HTTP_501_NOT_IMPLEMENTED)
+def update(sent: InstrucaoCapacitacaoRequest):
+    # TODO : fazer  tratamento para verificar se o id de fato existe.
+    to_save = InstrucaoCapacitacao(**sent.__dict__)
+    response = instrucaoCapacitacaoUseCase.update(
+        instrucaoCapacitacaoSent=to_save)
+    if response is None:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Não foi possível atualizar a instrução de capacitação",
+        )
 
 
 # DETELE (by id)
-@router_instrucao.delete("/{instrucaoId}",
-                         status_code=status.HTTP_204_NO_CONTENT)
+@router_instrucao.delete("/{instrucaoId}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_id(instrucaoId: int):
     """Deleta uma instrução de capacitação dado o seu id"""
     instrucaoCapacitacaoUseCase.delete_by_id(instrucaoId=instrucaoId)
