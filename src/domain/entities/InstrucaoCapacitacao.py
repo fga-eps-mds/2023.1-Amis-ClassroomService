@@ -1,7 +1,7 @@
 """Importando parâmetros da orm"""
 from sqlalchemy import Column, Integer, String, ForeignKey
 from database import Base
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 NOME_MAX = 70
 DESCRICAO_MAX = 800
@@ -21,10 +21,14 @@ class InstrucaoCapacitacao(Base):
 
 
 class InstrucaoCapacitacaoBase(BaseModel):
-    idCurso: int
-    nome: str
-    descricao: str
-    dataCadastro: str
+    idCurso: int = Field(descricao="Id do curso vinculado a instrução")
+    nome: str = Field(descricao="Nome da capacitação", max_length=NOME_MAX)
+    descricao: str = Field(
+        descricao="Descrição da capacitação", max_length=DESCRICAO_MAX
+    )
+    dataCadastro: str = Field(
+        descricao="Data de cadastro da capacitação", max_length=DATA_CADASTRO_MAX
+    )
 
 
 class InstrucaoCapacitacaoRequest(InstrucaoCapacitacaoBase):
