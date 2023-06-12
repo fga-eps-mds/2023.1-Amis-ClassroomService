@@ -1,5 +1,5 @@
 '''Importando parâmetros da orm'''
-from sqlalchemy import Column, Integer, String, ForeignKey, Date
+from sqlalchemy import Column, Integer, String, ForeignKey
 from database import Base
 from pydantic import BaseModel
 
