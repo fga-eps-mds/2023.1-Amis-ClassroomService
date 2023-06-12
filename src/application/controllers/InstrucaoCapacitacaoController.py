@@ -1,10 +1,13 @@
 from database import engine, Base
 from sqlalchemy import Column
-from fastapi import APIRouter, status
+from fastapi import APIRouter, status, HTTPException
 from domain.entities.InstrucaoCapacitacao import (
     InstrucaoCapacitacaoRequest,
     InstrucaoCapacitacao,
     InstrucaoCapacitacaoResponse,
+    NOME_MAX,
+    DESCRICAO_MAX,
+    DATA_CADASTRO_MAX,
 )
 from application.controllers import instrucaoCapacitacaoUseCase
 
@@ -19,6 +22,23 @@ router_instrucao = APIRouter(
 # CREATE
 @router_instrucao.post("/", status_code=status.HTTP_201_CREATED)
 def create(instrucaoCapacitacao_request: InstrucaoCapacitacaoRequest):
+    # Validações
+    if len(instrucaoCapacitacao_request.nome) > NOME_MAX:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"O nome deve ter no máximo {NOME_MAX} caracteres",
+        )
+    if len(instrucaoCapacitacao_request.descricao) > DESCRICAO_MAX:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"A descrição deve ter no máximo {DESCRICAO_MAX} caracteres",
+        )
+    if len(instrucaoCapacitacao_request.dataCadastro) > DATA_CADASTRO_MAX:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"A data de cadastro deve ter no máximo {DATA_CADASTRO_MAX} caracteres",
+        )
+
     instrucaoCapacitacao_entitie = InstrucaoCapacitacao(
         **instrucaoCapacitacao_request.__dict__
     )
