@@ -35,9 +35,11 @@ def create(instrucaoCapacitacao_request: InstrucaoCapacitacaoRequest):
 
 
 # READ ALL
-@router_instrucao.get("/", status_code=status.HTTP_200_OK)
-def read_all() -> list[InstrucaoCapacitacaoResponse]:
-    raise HTTPException(status_code=status.HTTP_501_NOT_IMPLEMENTED)
+@router_instrucao.get("/", response_model=list[InstrucaoCapacitacaoResponse])
+def findall():
+    instrucaoCapacitacao = instrucaoCapacitacaoUseCase.find_all()
+    return instrucaoCapacitacao
+
 
 
 # READ BY ID

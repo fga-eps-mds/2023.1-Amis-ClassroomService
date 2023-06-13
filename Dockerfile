@@ -7,6 +7,6 @@ COPY . .
 ENV PYTHONPATH "/app/src"
 RUN pip install -r requirements.txt
 
-EXPOSE 8080
+EXPOSE 9091
 
 CMD [ "uvicorn", "src.main:app", "--host", "0.0.0.0","--port", "9091","--reload"]

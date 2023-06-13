@@ -59,6 +59,13 @@ class InstrucaoCapacitacaoRepository:
             session.commit()
 
         session.close()
+    
+    def find_all(self) -> list[InstrucaoCapacitacao]:
+        '''Função para fazer uma query de todas as SocialWorker da DB'''
+        session = self.database()
+        res = session.query(InstrucaoCapacitacao).all()
+        session.close()
+        return res
 
 
 assert isinstance(
