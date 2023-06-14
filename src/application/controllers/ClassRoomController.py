@@ -61,7 +61,7 @@ def update_classRoom(classSent : ClassRoomRequestCodigo):
 
 
 
-@router_classRoom.delete("/", status_code=status.HTTP_204_NO_CONTENT)
+@router_classRoom.delete("/{codigo}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_classRoom_codigo(codigo:int):
     classRoom = classUseCase.find_classRoom_codigo(codigo)
     if classRoom is None:
