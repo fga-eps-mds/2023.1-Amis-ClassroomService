@@ -4,6 +4,7 @@ load_dotenv()
 
 from src.application.controllers.CursoController import router_curso as curso_router
 from src.application.controllers.ClassRoomController import router_classRoom as router_classRoom 
+from src.application.controllers.RegisterController import router_register
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI
 from database import createTables
@@ -28,6 +29,7 @@ app.add_middleware(
 
 app.include_router(curso_router)
 app.include_router(router_classRoom)
+app.include_router(router_register)
 
 @app.get('/')
 async def root():
