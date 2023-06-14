@@ -7,24 +7,10 @@ from sqlalchemy import Column, Integer, String, Boolean, ForeignKey, Index
 from sqlalchemy import Column, Enum 
 from sqlalchemy.ext.declarative import declarative_base
 
-Base = declarative_base()
 
-class ClassRoomBase(BaseModel):
-    codigo:int 
-    nome_turma: str
-    data_inicio: str
-    data_fim: str
-    inicio_aula:str 
-    fim_aula:str 
-    capacidade_turma:int
-    fk_curso:int
-    fk_professor:str  
-
-# Pre requisito -> Crud prof 
-##Classe turma sem atributos de curso e professor 
 class ClassRoomDB(Base):
     __tablename__= "classRoom"
-    __table_args__ = {"extend_existing": True}
+    #__table_args__ = {"extend_existing": True}
         
     codigo: int = Column(Integer, primary_key= True , nullable= False)
     nome_turma: str = Column(String(70), nullable= False)
@@ -35,9 +21,24 @@ class ClassRoomDB(Base):
     capacidade_turma: int = Column(Integer, nullable=False)
     fk_curso: int = Column(Integer, nullable=False,)
     fk_professor: str = Column(String(100), nullable=False)
+    descricao: str = Column(String(500), nullable=True)
     
-##sessionLocal = SessionLocal()    
-Base.metadata.create_all(engine)
+
+class ClassRoomBase(BaseModel):
+    codigo:int 
+    nome_turma: str
+    data_inicio: str
+    data_fim: str
+    inicio_aula:str 
+    fim_aula:str 
+    capacidade_turma:int
+    fk_curso:int
+    fk_professor:str
+    descricao:str
+
+# Pre requisito -> Crud prof 
+##Classe turma sem atributos de curso e professor 
+
 
 class ClassRoomRequest(ClassRoomBase):
    '''...'''
