@@ -5,6 +5,7 @@ from config import settings
 from unittest.mock import Mock
 from os import getenv
 
+
 SQLALCHEMY_DATABASE_URL = settings.db_connect_url
 print("db_url" , SQLALCHEMY_DATABASE_URL)
 if not getenv("TEST"):
@@ -27,3 +28,6 @@ def get_db():
     finally:
         db.close()
     return db
+
+def createTables():
+    Base.metadata.create_all(bind=engine) 
