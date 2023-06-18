@@ -1,9 +1,9 @@
 from database import get_db
 from application.useCases.CadastrarCursoUseCase import CursoUseCase
-from application.useCases.CadastrarInstrucaoCapacitacaoUseCase import InstrucaoCapacitacaoUseCase
+from application.useCases.LoginClassRoomUseCase import ClassRoomUseCase 
 
 from infrastructure.repositories.CursoRepository import CursoRepository
-from infrastructure.repositories.InstrucaoCapacitacaoRepository import InstrucaoCapacitacaoRepository
+from infrastructure.repositories.ClassRoomRepository import ClassRoomRepository 
 from database import SessionLocal
 
 databaseSessionGenerator = SessionLocal
@@ -14,8 +14,8 @@ cursoUseCase = CursoUseCase(
     cursoRepository=cursoRepository
 )
 
-
-instrucaoCapacitacaoRepository = InstrucaoCapacitacaoRepository(databaseSessionGenerator)
-instrucaoCapacitacaoUseCase = InstrucaoCapacitacaoUseCase(
-    instrucaoCapacitacaoRepository=instrucaoCapacitacaoRepository
+classRoomRepository = ClassRoomRepository(databaseSessionGenerator)
+classUseCase = ClassRoomUseCase(
+    classRoomRepository=classRoomRepository
 )
+

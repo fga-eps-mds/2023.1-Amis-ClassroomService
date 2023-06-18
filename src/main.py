@@ -3,13 +3,19 @@ load_dotenv()
 #importa a rota aqui
 
 from src.application.controllers.CursoController import router_curso as curso_router
-from src.application.controllers.InstrucaoCapacitacaoController import router_instrucao 
+from src.application.controllers.ClassRoomController import router_classRoom as router_classRoom 
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI
+from database import createTables
 
 load_dotenv()
 app = FastAPI()
 
+##create dataTables 
+
+createTables()
+
+ 
 origins = ["*"]
 
 app.add_middleware(
@@ -21,9 +27,8 @@ app.add_middleware(
 )
 
 app.include_router(curso_router)
-app.include_router(router_instrucao)
-
+app.include_router(router_classRoom)
 
 @app.get('/')
 async def root():
-    return {"message": "Amis !"}
+    return {"message": "Amis !"}    
