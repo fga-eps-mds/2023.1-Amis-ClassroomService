@@ -12,3 +12,6 @@ class CursoRepositoryBaseModel(Protocol):
         ...
     def find_all(self, database: Session) -> list[Curso]:
         '''Função para fazer uma query de todas as SocialWorker da DB'''
+
+    
+        
