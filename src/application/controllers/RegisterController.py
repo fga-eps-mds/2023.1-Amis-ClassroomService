@@ -21,10 +21,24 @@ router_register = APIRouter(
 )
 #  GET ALL
 
-@router_register.post("/", status_code = status.HTTP_201_CREATED)
-def create_Register(register_request: RegisterRequest, database : Session = Depends(get_database)):
-    register_entitie = RegisterDB(**register_request.dict())
-    registerUseCase.save(registerSent=register_entitie)
+# @router_register.post("/", status_code = status.HTTP_201_CREATED)
+# def create_Register(register_request: RegisterRequest, database : Session = Depends(get_database)):
+#     register_entitie = RegisterDB(**register_request.dict())
+#     registerUseCase.save(registerSent=register_entitie)
+#     return register_request
+
+@router_register.post("/", status_code=status.HTTP_201_CREATED)
+def create_Register(register_request: RegisterRequest, database: Session = Depends(get_database)):
+    register_entity = RegisterDB(**register_request.__dict__)
+
+    register_sent = register_entity
+    ids_aluna = register_sent.idAluna.split(',')
+    print(type(ids_aluna))
+    for id in ids_aluna:
+        register_sent_copy = RegisterDB(**register_request.__dict__)  # Criar uma nova instância
+        register_sent_copy.idAluna = id  # Atribuir o valor correto de id
+        registerUseCase.save(register_sent=register_sent_copy)
+    
     return register_request
 
 @router_register.get("/", response_model = list[RegisterResponse])
@@ -45,14 +59,14 @@ def find_by_id(register_id : int):
         )
     return RegisterResponse.from_orm(register)
 
-@router_register.put("/", status_code=status.HTTP_201_CREATED)
+@router_register.put("/{idRegister}", status_code=status.HTTP_201_CREATED)
 def update(registerSent: RegisterRequestId):
     if registerUseCase.find_by_id(registerSent.idRegister) is None:
         raise HTTPException(status.HTTP_404_NOT_FOUND,
                             detail="register não existente")
     registerUseCase.update(registerSent)
 
-@router_register.delete("/", status_code=status.HTTP_204_NO_CONTENT)
+@router_register.delete("/{idRegister}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_by_id_Register(register_id : int):
     register = registerUseCase.find_by_id(register_id)
 
@@ -62,3 +76,4 @@ def delete_by_id_Register(register_id : int):
     
     registerUseCase.delete_by_id(register_id=register_id)
     return Response(status_code=status.HTTP_204_NO_CONTENT)
+    ####

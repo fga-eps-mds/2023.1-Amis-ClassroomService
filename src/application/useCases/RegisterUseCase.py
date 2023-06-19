@@ -18,8 +18,21 @@ class RegisterUseCase():
         self.__registerRepository__ = registerRepository
         self.__classRoomRepository__= classRoomRepository
     
-    def save(self, registerSent: RegisterDB) -> RegisterDB:
-        return self.__registerRepository__.save(registerSent=registerSent)
+    def save(self, register_sent: RegisterDB) -> RegisterDB:
+        
+        # ids_aluna = register_sent.idAluna.split(',')
+        # id_aluna_return = []
+        # print(type(ids_aluna))
+        # for id in ids_aluna:
+        #     #id_register = id_register+1
+        #     register_sent.idAluna = id
+        #     print(f'atribuição {register_sent.idAluna}')
+        #     #id_aluna_return.append(id)
+        #     result = self.__registerRepository__.save(registerSent=register_sent)
+        #     print(f'Os id:{id}')
+        #     print(f'Resultado{result}')
+        #     id_aluna_return.append(result)
+        return self.__registerRepository__.save(registerSent=register_sent)
         
     def update(self, registerSent: RegisterRequestId) -> NoReturn:
         """Sobrescreve os dados de um register, assume que ele já exista"""

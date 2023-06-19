@@ -14,6 +14,7 @@ class RegisterRepository:
     def save(self, registerSent: RegisterDB) -> RegisterDB:
         session = self.database()
         # TODO : verificar se o URM possui isso built in
+        print(f'estou no repositorio salvando o {registerSent.idAluna}')
         session.add(registerSent)
         session.commit()
         session.expunge_all()
