@@ -33,6 +33,7 @@ def create_Register(register_request: RegisterRequest, database: Session = Depen
 
     register_sent = register_entity
     ids_aluna = register_sent.idAluna.split(',')
+    
     print(type(ids_aluna))
     for id in ids_aluna:
         register_sent_copy = RegisterDB(**register_request.__dict__)  # Criar uma nova instância
@@ -41,16 +42,11 @@ def create_Register(register_request: RegisterRequest, database: Session = Depen
     
     return register_request
 
-@router_register.get("/", response_model = list[RegisterResponse])
-def find_all(database: Session = Depends(get_database)):
-     '''Faz uma query de todos os objetos register na DB (sem paginação)'''
-     register = registerUseCase.find_all()
-     return [RegisterResponse.from_orm(register) for register in register]
 
 @router_register.get("/{RegisterID}", response_model = RegisterResponse, 
                  status_code = status.HTTP_200_OK)
-def find_by_id(register_id : int):
-    register = registerUseCase.find_by_id(register_id)
+def find_by_id(codigoTurma : int):
+    register = registerUseCase.find_by_id(codigoTurma)
 
     if not register:
         raise HTTPException(

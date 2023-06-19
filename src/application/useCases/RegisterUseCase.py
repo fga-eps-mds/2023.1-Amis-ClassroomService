@@ -18,6 +18,12 @@ class RegisterUseCase():
         self.__registerRepository__ = registerRepository
         self.__classRoomRepository__= classRoomRepository
     
+    def find_by_id(self, codigoTurma : int) -> RegisterBase | None:
+        return self.__registerRepository__.find_by_id(codigoTurma = codigoTurma)
+
+    def delete_by_id(self, register_id: int) -> None:
+        return self.__registerRepository__.delete_by_id(register_id=register_id)    
+    
     def save(self, register_sent: RegisterDB) -> RegisterDB:
         
         # ids_aluna = register_sent.idAluna.split(',')
@@ -38,7 +44,8 @@ class RegisterUseCase():
         """Sobrescreve os dados de um register, assume que ele já exista"""
         self.__registerRepository__.update(RegisterDB(**registerSent.__dict__))
 
-    def find_all(self) -> list[RegisterResponse]:
+
+"""     def find_all(self, codigoTurma: int ) -> list[]:
         registers_db = self.__registerRepository__.find_all()
         registers = []
         for register_db in registers_db:
@@ -49,13 +56,8 @@ class RegisterUseCase():
             )
             registers.append(register)
         return registers
-
+"""
     
-    def find_by_id(self, register_id : int) -> RegisterBase | None:
-        return self.__registerRepository__.find_by_id(register_id=register_id)
-
-    def delete_by_id(self, register_id: int) -> None:
-        return self.__registerRepository__.delete_by_id(register_id=register_id)    
 
 
 

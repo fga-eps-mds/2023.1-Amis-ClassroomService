@@ -13,11 +13,7 @@ class RegisterRepositoryBaseModel(Protocol):
         """Funçãop para atualizar um register, assume que o register já existe."""
         ...
 
-    def find_all(self, database: Session) -> list[RegisterDB]:
-        '''Função para fazer uma query de todas as SocialWorker da DB'''
-        ...
-    
-    def find_by_id(self, register_id: int) -> RegisterDB | None:
+    def find_by_id(self, codigoTurma: int) -> RegisterDB | None:
         """Faz uma busca pelo id e retorna os dados do curso caso existe"""
         ...
     

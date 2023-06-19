@@ -28,18 +28,11 @@ class RegisterRepository:
         session.expunge_all()
         session.close()
 
-    def find_by_id(self, register_id: int) -> RegisterDB | None:
+    def find_by_id(self, codigoTurma: int) -> RegisterDB | None:
         """Faz uma busca pelo id no banco e retorna o objeto"""
         session = self.database()
         session.close()
-        return session.query(RegisterDB).filter(RegisterDB.idRegister == register_id).first()
-    
-    def find_all(self) -> list[RegisterDB]:
-        '''Função para fazer uma query de todas as SocialWorker da DB'''
-        session = self.database()
-        res = session.query(RegisterDB).all()
-        session.close()
-        return res
+        return session.query(RegisterDB).filter(RegisterDB.codigoTurma== codigoTurma).first()
 
     def delete_by_id(self, register_id: int) -> NoReturn:
         """Função para deletar um register do DB, caso exista"""
