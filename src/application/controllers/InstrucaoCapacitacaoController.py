@@ -49,7 +49,7 @@ def read_by_id(idCurso: int) -> list[InstrucaoCapacitacaoResponse]:
 
 
 # UPDATE
-@router_instrucao.put("/{codigo}", status_code=status.HTTP_201_CREATED)
+@router_instrucao.put("/{instrucaoId}", status_code=status.HTTP_201_CREATED)
 def update(sent: InstrucaoCapacitacaoRequest):
     # TODO : fazer  tratamento para verificar se o id de fato existe.
     to_save = InstrucaoCapacitacao(**sent.__dict__)
