@@ -36,12 +36,12 @@ def create_Register(register_request: RegisterRequest, database: Session = Depen
     return register_request
 
 
-@router_register.get("/{RegisterID}", response_model = list[RegisterBase])
+@router_register.get("/", response_model = list[RegisterBase])
 def find_by_id():
     register = registerUseCase.find_all() 
     return register
 
-@router_register.get("/", response_model = list[RegisterBaseStudent],
+@router_register.get("/{codigoTurma}", response_model = list[RegisterBaseStudent],
                      status_code= status.HTTP_200_OK)
 def find_all_student(codigoTurma: int):
     register = registerUseCase.find_all_student(codigoTurma)
