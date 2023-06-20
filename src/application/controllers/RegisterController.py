@@ -26,12 +26,16 @@ def create_Register(register_request: RegisterRequest, database: Session = Depen
 
     register_sent = register_entity
     ids_aluna = register_sent.idAluna.split(',')
-    
+    codigoTurma=register_sent.codigoTurma
+
     print(type(ids_aluna))
     for id in ids_aluna:
-        register_sent_copy = RegisterDB(**register_request.__dict__)  # Criar uma nova instância
-        register_sent_copy.idAluna = id  # Atribuir o valor correto de id
-        registerUseCase.save(register_sent=register_sent_copy)
+        id_nao_esta_cadastrado_turma=registerUseCase.find_all_student(codigoTurma)
+        print(f'O retorno do find: {id_nao_esta_cadastrado_turma}')
+        if not any(id in tupla for tupla in id_nao_esta_cadastrado_turma):
+            register_sent_copy = RegisterDB(**register_request.__dict__)  # Criar uma nova instância
+            register_sent_copy.idAluna = id  # Atribuir o valor correto de id
+            registerUseCase.save(register_sent=register_sent_copy)
     
     return register_request
 
