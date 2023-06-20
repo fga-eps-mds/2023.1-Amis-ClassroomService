@@ -10,7 +10,7 @@ class RegisterDB(Base):
     __tablename__ = "register"
     __table_args__ = {"extend_existing": True}
     
-    idAluna: int = Column(String(70), nullable= False)
+    idAluna: str = Column(String(70), nullable= False)
     codigoTurma: int = Column("codigoTurma", ForeignKey("classRoom.codigo"), index=True)
     idRegister: int = Column(Integer, primary_key=True, index=True, nullable= False)
     
@@ -18,8 +18,10 @@ class RegisterDB(Base):
 class RegisterBase(BaseModel):
     '''Classe para definir os modelos recebidos na API'''
     codigoTurma: int
-    idAluna: int
+    idAluna: str
 
+class RegisterBaseStudent(BaseModel):
+    idAluna:str
 
 class RegisterRequest(RegisterBase):
     '''...'''
