@@ -67,6 +67,11 @@ class InstrucaoCapacitacaoRepository:
         session.close()
         return res
 
+    def find_by_id(self, instrucaoCapacitacao_id: int) -> InstrucaoCapacitacao | None:
+        """Faz uma busca pelo id no banco e retorna o objeto"""
+        session = self.database()
+        session.close()
+        return session.query(InstrucaoCapacitacao).filter(InstrucaoCapacitacao.id == instrucaoCapacitacao_id).first()
 
 assert isinstance(
     InstrucaoCapacitacaoRepository({}),

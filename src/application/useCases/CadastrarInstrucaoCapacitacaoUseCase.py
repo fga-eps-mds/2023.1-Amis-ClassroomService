@@ -1,6 +1,7 @@
 from domain.entities.InstrucaoCapacitacao import (
     InstrucaoCapacitacao,
-    InstrucaoCapacitacaoResponse
+    InstrucaoCapacitacaoResponse,
+    InstrucaoCapacitacaoBase
 )
 from domain.repositories.InstrucaoCapacitacaoRepositoryBaseModel import (
     InstrucaoCapacitacaoRepositoryBaseModel,
@@ -37,6 +38,9 @@ class InstrucaoCapacitacaoUseCase:
         dado seu id"""
         self.__instrucaoCapacitacaoRepository__.delete_by_id(
             instrucaoId=instrucaoId)
+        
+    def find_by_id(self, instrucaoCapacitacao_id : int) -> InstrucaoCapacitacaoBase | None:
+        return self.__instrucaoCapacitacaoRepository__.find_by_id(instrucaoCapacitacao_id=instrucaoCapacitacao_id)   
 
     def find_all(self) -> list[InstrucaoCapacitacaoResponse]:
         instrucoesCapacitacao_db = self.__instrucaoCapacitacaoRepository__.find_all()

@@ -33,7 +33,7 @@ class InstrucaoCapacitacaoBase(BaseModel):
 
 class InstrucaoCapacitacaoRequest(InstrucaoCapacitacaoBase):
     """..."""
-
+    id: int
     pass
 
 
@@ -45,7 +45,6 @@ class InstrucaoCapacitacaoRequestId(InstrucaoCapacitacaoBase):
 
 class InstrucaoCapacitacaoResponse(InstrucaoCapacitacaoBase):
     """..."""
-
     id: int
 
     class Config:
