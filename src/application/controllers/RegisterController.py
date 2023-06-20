@@ -5,7 +5,7 @@ from database import engine, Base
 from database import get_db as get_database
 from sqlalchemy.orm import Session
 from fastapi import APIRouter, status, Depends, Response, HTTPException
-from src.domain.entities.Register import RegisterRequestId, RegisterResponse, RegisterRequest, RegisterDB
+from src.domain.entities.Register import RegisterRequestId, RegisterResponse, RegisterRequest, RegisterDB, RegisterBase
 from application.useCases.RegisterUseCase import RegisterUseCase
 
 # from application.controllers import registerUseCase
@@ -19,13 +19,6 @@ router_register = APIRouter(
     tags=['register'],
     responses={404 : {"description" : "Not found"}}
 )
-#  GET ALL
-
-# @router_register.post("/", status_code = status.HTTP_201_CREATED)
-# def create_Register(register_request: RegisterRequest, database : Session = Depends(get_database)):
-#     register_entitie = RegisterDB(**register_request.dict())
-#     registerUseCase.save(registerSent=register_entitie)
-#     return register_request
 
 @router_register.post("/", status_code=status.HTTP_201_CREATED)
 def create_Register(register_request: RegisterRequest, database: Session = Depends(get_database)):
@@ -43,17 +36,28 @@ def create_Register(register_request: RegisterRequest, database: Session = Depen
     return register_request
 
 
-@router_register.get("/{RegisterID}", response_model = RegisterResponse, 
-                 status_code = status.HTTP_200_OK)
-def find_by_id(codigoTurma : int):
-    register = registerUseCase.find_by_id(codigoTurma)
+@router_register.get("/{RegisterID}", response_model = list[RegisterBase])
+def find_by_id():
+    register = registerUseCase.find_all() 
+    return register
+
+@router_register.get("/", response_model = list[RegisterResponse],
+                     status_code= status.HTTP_200_OK)
+def find_all_student(codigoTurma: int):
+    register = registerUseCase.find_all_student(codigoTurma)
 
     if not register:
         raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail= "Registro não encontrado"
+            status_code= status.HTTP_404_NOT_FOUND,
+            detail= "Estudante não encontrado"
         )
-    return RegisterResponse.from_orm(register)
+    register_responses = []
+    for idAluna in register:
+        row = idAluna.idAluna
+        register_response = RegisterResponse(codigoTurma=codigoTurma, idAluna=int(row))
+        register_responses.append(register_response)
+    return register_responses
+
 
 @router_register.put("/{idRegister}", status_code=status.HTTP_201_CREATED)
 def update(registerSent: RegisterRequestId):

@@ -10,20 +10,15 @@ class RegisterDB(Base):
     __tablename__ = "register"
     __table_args__ = {"extend_existing": True}
     
-    idAluna: str = Column(String(70), nullable= False)
-    #codigoTurma: int  = Column(Integer, nullable= False)
+    idAluna: int = Column(String(70), nullable= False)
     codigoTurma: int = Column("codigoTurma", ForeignKey("classRoom.codigo"), index=True)
     idRegister: int = Column(Integer, primary_key=True, index=True, nullable= False)
     
-    # codigoTurma: int = Column("codigo", ForeignKey("classRoom.codigo"), index=True)
-    #idAluna: int = Column("idAluna", ForeignKey("curso.id"), index=True)
-    # classRoom = relationship("Classroom", backref="register")
-
 
 class RegisterBase(BaseModel):
     '''Classe para definir os modelos recebidos na API'''
     codigoTurma: int
-    idAluna: str
+    idAluna: int
 
 
 class RegisterRequest(RegisterBase):
@@ -33,10 +28,13 @@ class RegisterRequest(RegisterBase):
 
 class RegisterResponse(RegisterBase):
     '''...'''
-    idRegister:int
+    #idRegister:int
     class Config:
         orm_mode = True
 
 class RegisterRequestId(RegisterBase):
     """Necessário para se fazer o update"""
     idRegister : int
+
+class RegisterRequestCodigoTurma(RegisterBase):
+    codigoTurma : int     

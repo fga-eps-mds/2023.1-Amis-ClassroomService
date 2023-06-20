@@ -11,7 +11,7 @@ class ClassRoomRepositoryBaseModel(Protocol):
     def save_class(self, database: Session, classSent: ClassRoomDB )-> ClassRoomDB:
         ...
         
-    def find_all_class(self, database: Session)-> list[ClassRoomDB]:
+    def find_all_class(self, database: Session)-> list[ClassRoomDB] | None:
         ...
 
     def find_classRoom_codigo(self, codigo: int) -> ClassRoomDB:
