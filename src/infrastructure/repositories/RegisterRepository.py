@@ -37,10 +37,10 @@ class RegisterRepository:
         session = self.database()
         return session.query(RegisterDB.idAluna).filter_by(codigoTurma = codigoTurma).all()
 
-    def delete_by_id(self, register_id: int) -> NoReturn:
+    def delete_by_id(self,codigoTurma:int,idAluna:str) -> NoReturn:
         """Função para deletar um register do DB, caso exista"""
         session = self.database()
-        register_session = session.query(RegisterDB).filter(RegisterDB.idRegister == register_id).first()
+        register_session = session.query(RegisterDB).filter_by(codigoTurma = codigoTurma, idAluna = idAluna).first()
 
         if register_session is not None:
             session.delete(register_session)

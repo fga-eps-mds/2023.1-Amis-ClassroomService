@@ -32,8 +32,8 @@ class RegisterUseCase():
     def find_all_student(self, codigoTurma:int)-> RegisterDB | None:
         return self.__registerRepository__.find_all_student(codigoTurma=codigoTurma)
     
-    def delete_by_id(self, register_id: int) -> None:
-        return self.__registerRepository__.delete_by_id(register_id=register_id)    
+    def delete_by_id(self, codigoTurma:int,idAluna:str) -> None:
+        return self.__registerRepository__.delete_by_id(codigoTurma= codigoTurma,idAluna= idAluna)    
     
     def save(self, register_sent: RegisterDB) -> RegisterDB:
         return self.__registerRepository__.save(registerSent=register_sent)

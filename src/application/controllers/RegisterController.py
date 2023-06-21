@@ -45,7 +45,7 @@ def find_by_id():
     register = registerUseCase.find_all() 
     return register
 
-@router_register.get("/{codigoTurma}", response_model = list[RegisterBaseStudent],
+@router_register.get("/{codigoTurma}", response_model = list[RegisterResponse],
                      status_code= status.HTTP_200_OK)
 def find_all_student(codigoTurma: int):
     register = registerUseCase.find_all_student(codigoTurma)
@@ -58,7 +58,7 @@ def find_all_student(codigoTurma: int):
     register_responses = []
     
     for idAluna in register:
-        register_response = RegisterBaseStudent(idAluna=(idAluna.idAluna))
+        register_response = RegisterResponse(codigoTurma = codigoTurma , idAluna=(idAluna.idAluna))
         register_responses.append(register_response)
     return register_responses
 
@@ -71,13 +71,13 @@ def update(registerSent: RegisterRequestId):
     registerUseCase.update(registerSent)
 
 @router_register.delete("/{idRegister}", status_code=status.HTTP_204_NO_CONTENT)
-def delete_by_id_Register(register_id : int):
-    register = registerUseCase.find_by_id(register_id)
+def delete_by_id_Register(codigoTurma:int,idAluna:str ):
+    register = registerUseCase.find_all_student(codigoTurma)  
 
     if register is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail="Registro não encontrado")
     
-    registerUseCase.delete_by_id(register_id=register_id)
+    registerUseCase.delete_by_id(idAluna= idAluna, codigoTurma=codigoTurma)
     return Response(status_code=status.HTTP_204_NO_CONTENT)
     ####

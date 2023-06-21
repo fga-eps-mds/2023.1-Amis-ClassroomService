@@ -20,7 +20,7 @@ class RegisterRepositoryBaseModel(Protocol):
     def find_all_student(self, codigoTurma: int ) -> RegisterDB:
         ...
 
-    def delete_by_id(self, register_id: int)-> NoReturn:
+    def delete_by_id(self, codigoTurma:int,idAluna:str )-> NoReturn:
         '''Função para apagar um register do banco pelo id'''
         ...
 
