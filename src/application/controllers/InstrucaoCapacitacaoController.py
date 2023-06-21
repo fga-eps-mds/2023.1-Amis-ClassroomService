@@ -4,6 +4,7 @@ from domain.entities.InstrucaoCapacitacao import (
     InstrucaoCapacitacaoRequest,
     InstrucaoCapacitacao,
     InstrucaoCapacitacaoResponse,
+    InstrucaoCapacitacaoRequestId
 )
 from application.controllers import instrucaoCapacitacaoUseCase
 
@@ -50,7 +51,7 @@ def read_by_id(idCurso: int) -> list[InstrucaoCapacitacaoResponse]:
 
 # UPDATE
 @router_instrucao.put("/{id}", status_code=status.HTTP_201_CREATED)
-def update(sent: InstrucaoCapacitacaoRequest):
+def update(sent: InstrucaoCapacitacaoRequestId):
     to_save = InstrucaoCapacitacao(**sent.__dict__)
     if instrucaoCapacitacaoUseCase.find_by_id(sent.id) is None:
         raise HTTPException(status.HTTP_404_NOT_FOUND,

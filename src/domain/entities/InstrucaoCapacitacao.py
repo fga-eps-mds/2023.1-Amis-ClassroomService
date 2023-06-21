@@ -33,7 +33,7 @@ class InstrucaoCapacitacaoBase(BaseModel):
 
 class InstrucaoCapacitacaoRequest(InstrucaoCapacitacaoBase):
     """..."""
-    id: int
+    #id: int
     pass
 
 
