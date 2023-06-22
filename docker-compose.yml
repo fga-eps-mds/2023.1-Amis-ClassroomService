@@ -1,12 +1,10 @@
-version: '3.8'
+version: "3.8"
 
 services:
-  api:
-    build:
-      context: ./
-    container_name: curso
+  amis-classroom-service:
+    container_name: amis-classroom-service
+    build: .
     ports:
       - "9091:9091"
-    
     volumes:
-      - ./:/app/
+      - ./:/app
