@@ -19,7 +19,7 @@ async def test_create_Register():
     assert response.status_code == status.HTTP_201_CREATED
 
 @pytest.mark.asyncio
-async def test_find_all_student():
+async def test_find_all_student_controller():
     async with AsyncClient(base_url=HTTPS_REGISTER) as async_client: 
         response = await async_client.get("/register/")
     assert response.status_code == status.HTTP_200_OK
