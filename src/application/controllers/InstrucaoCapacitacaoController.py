@@ -6,7 +6,7 @@ from domain.entities.InstrucaoCapacitacao import (
     InstrucaoCapacitacaoResponse,
     InstrucaoCapacitacaoRequestId
 )
-from application.controllers import instrucaoCapacitacaoUseCase
+#from application.controllers import instrucaoCapacitacaoUseCase
 
 Base.metadata.create_all(bind=engine)
 
