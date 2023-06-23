@@ -1,7 +1,7 @@
 from unittest import mock
 from unittest.mock import MagicMock, patch
 import pytest
-from domain.entities.Register import RegisterDB, RegisterResponse
+from domain.entities.Register import RegisterDB, RegisterResponse, RegisterBase
 from infrastructure.repositories.RegisterRepository import RegisterRepository
 from sqlalchemy.orm import Session
 from unittest.mock import MagicMock
@@ -12,6 +12,26 @@ sys.path.append(str(Path(__file__).resolve().parents[2]))
 
 def generate_session():
     return MagicMock(spec=Session)
+
+def test_save_new_student():
+    # Arrange
+    database = generate_session()
+    test_session = database
+
+    register = RegisterBase(
+        idAluna= "mario.student",
+        codigoTurma=1        
+    )
+    test_session.query().filter().first.return_value = None
+    register_repository = RegisterRepository(database)
+
+    # Act
+    result = register_repository.save(register)
+
+    # Assert"12234567890"
+    assert result == register
+
+    test_session.close()
 
 
 def test_find_all():
