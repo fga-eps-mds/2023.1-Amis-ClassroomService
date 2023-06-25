@@ -25,7 +25,7 @@ class ClassRoomDB(Base):
     
 
 class ClassRoomBase(BaseModel):
-    codigo:int 
+    codigo:int
     nome_turma: str
     data_inicio: str
     data_fim: str
@@ -46,6 +46,7 @@ class ClassRoomRequest(ClassRoomBase):
 
 class ClassRoomResponse(ClassRoomBase):
     '''...'''
+    #codigo:int  # tirar se for pra inserir
     class Config:
         orm_mode = True
 

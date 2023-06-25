@@ -28,7 +28,7 @@ class ClassRoomUseCase():
                 capacidade_turma= classI_db.capacidade_turma,
                 fk_curso = classI_db.fk_curso,
                 fk_professor = classI_db.fk_professor,
-                descricao = classI_db.descricao
+                descricao= classI_db.descricao 
             )
             classRomns.append(classRoom)
         return classRomns 

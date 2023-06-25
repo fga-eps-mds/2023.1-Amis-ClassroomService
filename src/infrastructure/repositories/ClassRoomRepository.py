@@ -20,7 +20,6 @@ class ClassRoomRepository:
         return classSent
     
     def find_all_class(self) -> list[ClassRoomDB]:
-
         session = self.database()
         res = session.query(ClassRoomDB).all()
         session.close()
@@ -29,7 +28,7 @@ class ClassRoomRepository:
     def find_classRoom_codigo(self, codigo:int)-> ClassRoomDB | None:
         session = self.database()
         return session.query(ClassRoomDB).filter(ClassRoomDB.codigo == codigo).first()
-
+                                               
 
     def update_classRoom(self, classSent: ClassRoomDB)-> NoReturn:
         session = self.database()
