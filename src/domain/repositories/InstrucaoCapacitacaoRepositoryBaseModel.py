@@ -25,5 +25,8 @@ class InstrucaoCapacitacaoRepositoryBaseModel(Protocol):
         "Deleta uma instrução dado seu ID"
         ...
         
-    def find_by_id(self, instrucaoCapacitacao_id: int) -> InstrucaoCapacitacao | None:
+    def find_by_id(self, instrucaoCapacitacao_curso: int) -> InstrucaoCapacitacao | None:
+        ...
+
+    def find_by_id_curso(self, instrucaoCapacitacao_curso: int) -> list[InstrucaoCapacitacao]:
         ...
