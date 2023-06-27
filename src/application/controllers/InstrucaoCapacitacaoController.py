@@ -43,10 +43,29 @@ def findall():
 
 
 
+# READ BY ID CURSO
+@router_instrucao.get("/curso/{idCurso}", response_model=list[InstrucaoCapacitacaoResponse])
+def find_by_id_curso(idCurso: int):
+    '''Faz uma query de um objeto instrução na DB pelo id do curso'''
+    instrucao_capacitacao = instrucaoCapacitacaoUseCase.find_by_id_curso(idCurso)
+
+    if instrucao_capacitacao is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Instrução não encontrada")
+
+    return instrucao_capacitacao
+
 # READ BY ID
-@router_instrucao.get("/{idCurso}", status_code=status.HTTP_200_OK)
-def read_by_id(idCurso: int) -> list[InstrucaoCapacitacaoResponse]:
-    raise HTTPException(status_code=status.HTTP_501_NOT_IMPLEMENTED)
+@router_instrucao.get("/{id}",
+                  response_model=InstrucaoCapacitacaoResponse,
+                  status_code=status.HTTP_200_OK)
+def find_by_id(id: int):
+    '''Faz uma query de um objeto assistente na DB pelo id'''
+    instrucao_capacitacao = instrucaoCapacitacaoUseCase.find_by_id(id)
+
+    if instrucao_capacitacao is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Instrução não encontrado")
+
+    return instrucao_capacitacao
 
 
 # UPDATE
