@@ -1,4 +1,4 @@
-from database import get_db
+""" from database import get_db
 from application.useCases.CadastrarCursoUseCase import CursoUseCase
 
 from infrastructure.repositories.CursoRepository import CursoRepository
@@ -10,4 +10,4 @@ databaseSessionGenerator = SessionLocal
 cursoRepository = CursoRepository(databaseSessionGenerator)
 cursoUseCase = CursoUseCase(
     cursoRepository=cursoRepository
-)
+) """
