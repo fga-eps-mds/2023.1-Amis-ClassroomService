@@ -6,7 +6,7 @@ from domain.entities.InstrucaoCapacitacao import (
     InstrucaoCapacitacaoResponse,
     InstrucaoCapacitacaoRequestId
 )
-#from application.controllers import instrucaoCapacitacaoUseCase
+from application.controllers import instrucaoUseCase
 
 Base.metadata.create_all(bind=engine)
 
@@ -23,7 +23,7 @@ def create(instrucaoCapacitacao_request: InstrucaoCapacitacaoRequest):
         **instrucaoCapacitacao_request.__dict__
     )
 
-    response = instrucaoCapacitacaoUseCase.save(
+    response = instrucaoUseCase.save(
         instrucaoCapacitacaoSent=instrucaoCapacitacao_entitie
     )
 
@@ -38,7 +38,7 @@ def create(instrucaoCapacitacao_request: InstrucaoCapacitacaoRequest):
 # READ ALL
 @router_instrucao.get("/", response_model=list[InstrucaoCapacitacaoResponse])
 def findall():
-    instrucaoCapacitacao = instrucaoCapacitacaoUseCase.find_all()
+    instrucaoCapacitacao = instrucaoUseCase.find_all()
     return instrucaoCapacitacao
 
 
@@ -47,7 +47,7 @@ def findall():
 @router_instrucao.get("/curso/{idCurso}", response_model=list[InstrucaoCapacitacaoResponse])
 def find_by_id_curso(idCurso: int):
     '''Faz uma query de um objeto instrução na DB pelo id do curso'''
-    instrucao_capacitacao = instrucaoCapacitacaoUseCase.find_by_id_curso(idCurso)
+    instrucao_capacitacao = instrucaoUseCase.find_by_id_curso(idCurso)
 
     if instrucao_capacitacao is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Instrução não encontrada")
@@ -60,7 +60,7 @@ def find_by_id_curso(idCurso: int):
                   status_code=status.HTTP_200_OK)
 def find_by_id(id: int):
     '''Faz uma query de um objeto assistente na DB pelo id'''
-    instrucao_capacitacao = instrucaoCapacitacaoUseCase.find_by_id(id)
+    instrucao_capacitacao = instrucaoUseCase.find_by_id(id)
 
     if instrucao_capacitacao is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Instrução não encontrado")
@@ -72,10 +72,10 @@ def find_by_id(id: int):
 @router_instrucao.put("/{id}", status_code=status.HTTP_201_CREATED)
 def update(sent: InstrucaoCapacitacaoRequestId):
     to_save = InstrucaoCapacitacao(**sent.__dict__)
-    if instrucaoCapacitacaoUseCase.find_by_id(sent.id) is None:
+    if instrucaoUseCase.find_by_id(sent.id) is None:
         raise HTTPException(status.HTTP_404_NOT_FOUND,
                             detail="Instrução não existente")
-    response = instrucaoCapacitacaoUseCase.update(
+    response = instrucaoUseCase.update(
         instrucaoCapacitacaoSent=to_save)
     if response is None:
         raise HTTPException(
@@ -92,5 +92,5 @@ def update(sent: InstrucaoCapacitacaoRequestId):
 @router_instrucao.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_id(id: int):
     """Deleta uma instrução de capacitação dado o seu id"""
-    instrucaoCapacitacaoUseCase.delete_by_id(instrucaoId=id)
+    instrucaoUseCase.delete_by_id(instrucaoId=id)
     return Response(status_code=status.HTTP_204_NO_CONTENT)
