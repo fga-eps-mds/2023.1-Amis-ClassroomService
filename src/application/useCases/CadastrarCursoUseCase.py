@@ -3,17 +3,17 @@ from domain.repositories.CursoRepositoryBaseModel import CursoRepositoryBaseMode
 from typing import NoReturn
 
 class CursoUseCase():
-    __cursoRepository__: CursoRepositoryBaseModel
+    __curso_repository__: CursoRepositoryBaseModel
 
     def __init__(
         self,
-        cursoRepository: CursoRepositoryBaseModel
+        curso_repository: CursoRepositoryBaseModel
     ):
-        self.__cursoRepository__ = cursoRepository
+        self.__cursoRepository__ = curso_repository
 
-    def save(self, cursoSent: Curso) -> Curso:
+    def save(self, curso_sent: Curso) -> Curso:
         '''Função para salvar um objeto SocialWorker na DB, utilizada também como update'''
-        return self.__cursoRepository__.save(cursoSent=cursoSent)
+        return self.__cursoRepository__.save(cursoSent=curso_sent)
 
     def delete_by_id(self, id: int) -> None:
         return self.__cursoRepository__.delete_by_id(curso_id=id)
@@ -35,6 +35,6 @@ class CursoUseCase():
     def find_by_id(self, curso_id : int) -> CursoBase | None:
         return self.__cursoRepository__.find_by_id(curso_id=curso_id)
 
-    def update(self, cursoSent: CursoRequestId) -> NoReturn:
+    def update(self, curso_sent: CursoRequestId) -> NoReturn:
         """Sobrescreve os dados de um curso, assume que ele já exista"""
-        self.__cursoRepository__.update(Curso(**cursoSent.__dict__))
+        self.__cursoRepository__.update(Curso(**curso_sent.__dict__))

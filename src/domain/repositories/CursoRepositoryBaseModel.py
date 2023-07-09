@@ -7,11 +7,11 @@ from typing import Protocol, runtime_checkable, NoReturn
 @runtime_checkable
 class CursoRepositoryBaseModel(Protocol):
 
-    def save(self, cursoSent: Curso) -> Curso:
+    def save(self, class_sent: Curso) -> Curso:
         '''Função para salvar um objeto assistente na DB'''
         ...
 
-    def update(self, cursoSent: Curso) -> NoReturn:
+    def update(self, class_sent: Curso) -> NoReturn:
         """Funçãop para atualizar um Curso, assume que o curso já existe."""
         ...
 

@@ -18,9 +18,9 @@ router_instrucao = APIRouter(
 
 # CREATE
 @router_instrucao.post("/", status_code=status.HTTP_201_CREATED)
-def create(instrucaoCapacitacao_request: InstrucaoCapacitacaoRequest):
+def create(instrucao_capacitacao_request: InstrucaoCapacitacaoRequest):
     instrucaoCapacitacao_entitie = InstrucaoCapacitacao(
-        **instrucaoCapacitacao_request.__dict__
+        **instrucao_capacitacao_request.__dict__
     )
 
     response = instrucaoUseCase.save(
@@ -32,14 +32,19 @@ def create(instrucaoCapacitacao_request: InstrucaoCapacitacaoRequest):
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Não foi possível salvar a instrução de capacitação",
         )
-    return instrucaoCapacitacao_request
+    return instrucao_capacitacao_request
 
 
 # READ ALL
 @router_instrucao.get("/", response_model=list[InstrucaoCapacitacaoResponse])
 def findall():
+16-Arrumando-CodeSmells
+    instrucao_capacitacao = instrucaoCapacitacaoUseCase.find_all()
+    return instrucao_capacitacao
+
     instrucaoCapacitacao = instrucaoUseCase.find_all()
     return instrucaoCapacitacao
+
 
 
 

@@ -5,20 +5,32 @@ from fastapi import HTTPException, status
 from infrastructure.repositories.field_repository import FieldValidation 
 
 class ClassRoomUseCase():
-    __classRoomRepository__: ClassRoomRepositoryBaseModel
+    __class_room_repository__: ClassRoomRepositoryBaseModel
 
-    def __init__(self, classRoomRepository: ClassRoomRepositoryBaseModel):
-        self.__classRoomRepository__ = classRoomRepository
+    def __init__(self, class_room_repository: ClassRoomRepositoryBaseModel):
+        self.__classRoomRepository__ = class_room_repository
 
-    def save_class(self, classSent: ClassRoomDB) -> ClassRoomDB:
-        return self.__classRoomRepository__.save_class(classSent=classSent)
+    def save_class(self, class_sent: ClassRoomDB) -> ClassRoomDB:
+        return self.__classRoomRepository__.save_class(class_sent=class_sent)
 
     
     def find_all_class(self)-> list[ClassRoomResponse]:
-        classRoom_db = self.__classRoomRepository__.find_all_class()
-        classRomns = []
-        for classI_db in classRoom_db:
+        class_room_db = self.__classRoomRepository__.find_all_class()
+        class_romns = []
+        for class_i_db in class_room_db:
             classRoom = ClassRoomResponse(
+ 16-Arrumando-CodeSmells
+                codigo = class_i_db.codigo,
+                nome_turma = class_i_db.nome_turma,
+                data_inicio = class_i_db.data_inicio,
+                data_fim = class_i_db.data_fim,
+                inicio_aula = class_i_db.inicio_aula,
+                fim_aula = class_i_db.fim_aula, 
+                capacidade_turma= class_i_db.capacidade_turma,
+                fk_curso = class_i_db.fk_curso,
+                fk_professor = class_i_db.fk_professor,
+                descricao = class_i_db.descricao
+
                 codigo = classI_db.codigo,
                 nome_turma = classI_db.nome_turma,
                 data_inicio = classI_db.data_inicio,
@@ -30,45 +42,45 @@ class ClassRoomUseCase():
                 fk_professor = classI_db.fk_professor,
                 descricao= classI_db.descricao 
             )
-            classRomns.append(classRoom)
-        return classRomns 
+            class_romns.append(classRoom)
+        return class_romns 
 
-    def find_classRoom_codigo(self, codigo:int) ->ClassRoomBase | None:
+    def find_class_room_codigo(self, codigo:int) ->ClassRoomBase | None:
         return self.__classRoomRepository__.find_classRoom_codigo(codigo=codigo)
 
-    def update_classRoom(self, classSent:ClassRoomRequestCodigo):
-        self.__classRoomRepository__.update_classRoom(ClassRoomDB(**classSent.__dict__))   
+    def update_class_room(self, class_sent:ClassRoomRequestCodigo):
+        self.__classRoomRepository__.update_classRoom(ClassRoomDB(**class_sent.__dict__))   
     
-    def delete_classRoom_codigo(self, codigo:int) -> None:
+    def delete_class_room_codigo(self, codigo:int) -> None:
         return self.__classRoomRepository__.delete_classRoom_codigo(codigo=codigo)
 
-    def validate_classRoom(self, classRoom: ClassRoomDB) -> dict:
+    def validate_class_room(self, class_room: ClassRoomDB) -> dict:
         fieldInfoDict = {}
         fieldInfoDict["nomeTurma"] = vars(FieldValidation.nomeTurmaValidation(
-            classRoom.nome_turma
+            class_room.nome_turma
         ))
         fieldInfoDict["dataInicio"] = vars(FieldValidation.data_inicio(
-            classRoom.data_inicio
+            class_room.data_inicio
         ))
         fieldInfoDict["dataFim"] = vars(FieldValidation.data_fim(
-            classRoom.data_fim
+            class_room.data_fim
         ))
         fieldInfoDict["inicioAula"] = vars(FieldValidation.inicioAulaValidation(
-            classRoom.inicio_aula
+            class_room.inicio_aula
         ))
         fieldInfoDict["fimAula"] = vars(FieldValidation.fimAulaValidation(
-            classRoom.fim_aula
+            class_room.fim_aula
         ))
         fieldInfoDict["Professor"] = vars(FieldValidation.professorValidation(
-            classRoom.fk_professor
+            class_room.fk_professor
         ))
 
-        completeStatus = True
+        complete_status = True
         for key in fieldInfoDict:
             if fieldInfoDict[key]['status'] == False:
-                completeStatus = False
+                complete_status = False
                 break
-        fieldInfoDict['completeStatus'] = completeStatus    
+        fieldInfoDict['complete_status'] = complete_status    
 
         return fieldInfoDict
 
