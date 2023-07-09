@@ -33,7 +33,7 @@ def create_classRoom(class_request: ClassRoomRequest ,database: Session = Depend
     return class_request    
 
 ## Funfando
-@router_classRoom.get("/", response_model= list[ClassRoomBase])
+@router_classRoom.get("/", response_model= list[ClassRoomResponse])
 def find_all_classRoom():
     classRoomFind = classUseCase.find_all_class()
     return classRoomFind
