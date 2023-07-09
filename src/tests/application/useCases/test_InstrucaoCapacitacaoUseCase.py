@@ -48,6 +48,8 @@ test_list = [
 
 def test_save_instrucao_valida(instrucaoCapacitacaoSent):
     """Testa se o curso é salvo com sucesso, assume que sempre recebe um curso válido"""
+    #print(instrucaoCapacitacaoSent.__dict__)
+    #print(instrucao_use_case.find_all())
     response = instrucao_use_case.save(instrucaoCapacitacaoSent=instrucaoCapacitacaoSent)
     assert instrucaoCapacitacaoSent == response, response.__dict__
 

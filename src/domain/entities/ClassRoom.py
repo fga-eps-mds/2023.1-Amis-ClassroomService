@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-
+##from entities.Curso import Curso 
 from src.domain.entities.Curso import Curso 
 from enum import Enum
 from database import Base, SessionLocal, engine
@@ -10,7 +10,7 @@ from sqlalchemy.ext.declarative import declarative_base
 
 class ClassRoomDB(Base):
     __tablename__= "classRoom"
-    
+    #__table_args__ = {"extend_existing": True}
         
     codigo: int = Column(Integer, primary_key= True , nullable= False, index=True)
     nome_turma: str = Column(String(70), nullable= False)

@@ -11,18 +11,18 @@ class CursoRepository:
         self.database = session
 
 
-    def save(self, curso_sent: Curso) -> Curso:
+    def save(self, cursoSent: Curso) -> Curso:
         session = self.database()
-        # TODO : 
-        session.add(curso_sent)
+        # TODO : verificar se o URM possui isso built in
+        session.add(cursoSent)
         session.commit()
         session.expunge_all()
         session.close()
-        return curso_sent
+        return cursoSent
 
-    def update(self, curso_sent: Curso) -> NoReturn:
+    def update(self, cursoSent: Curso) -> NoReturn:
         session = self.database()
-        session.merge(curso_sent)
+        session.merge(cursoSent)
         session.commit()
         session.expunge_all()
         session.close()

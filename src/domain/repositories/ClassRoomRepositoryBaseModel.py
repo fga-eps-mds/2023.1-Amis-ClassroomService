@@ -8,7 +8,7 @@ from typing import Protocol, runtime_checkable, NoReturn
 
 class ClassRoomRepositoryBaseModel(Protocol):
 
-    def save_class(self, database: Session, class_sent: ClassRoomDB )-> ClassRoomDB:
+    def save_class(self, database: Session, classSent: ClassRoomDB )-> ClassRoomDB:
         ...
         
     def find_all_class(self, database: Session)-> list[ClassRoomDB] | None:
@@ -17,13 +17,13 @@ class ClassRoomRepositoryBaseModel(Protocol):
     def find_classRoom_codigo(self, codigo: int) -> ClassRoomDB:
         ...
 
-    def update_classRoom(self, class_sent = ClassRoomDB)-> NoReturn:
+    def update_classRoom(self, classSent = ClassRoomDB)-> NoReturn:
         ...
 
     def delete_classRoom_codigo(self, codigo:int)-> NoReturn:
         ...
 
-    def validate_classRoom(self, class_room_base: ClassRoomBase)-> dict:
+    def validate_classRoom(self, classRoomBase: ClassRoomBase)-> dict:
         ...
 
     

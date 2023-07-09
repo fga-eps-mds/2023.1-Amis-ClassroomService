@@ -11,12 +11,12 @@ class InstrucaoCapacitacaoRepository:
         self.database = session
 
     def save(
-        self, instrucao_capacitacao_sent: InstrucaoCapacitacao
+        self, instrucaoCapacitacaoSent: InstrucaoCapacitacao
     ) -> InstrucaoCapacitacao | None:
-        # TODO : 
+        # TODO : verificar se o URM possui isso built in
         session = self.database()
         try:
-            session.add(instrucao_capacitacao_sent)
+            session.add(instrucaoCapacitacaoSent)
             session.commit()
             session.expunge_all()
             session.close()
@@ -25,14 +25,14 @@ class InstrucaoCapacitacaoRepository:
             return None
         finally:
             session.close()
-        return instrucao_capacitacao_sent
+        return instrucaoCapacitacaoSent
 
     def update(
-        self, instrucao_capacitacao_sent: InstrucaoCapacitacao
+        self, instrucaoCapacitacaoSent: InstrucaoCapacitacao
     ) -> InstrucaoCapacitacao | None:
         session = self.database()
         try:
-            session.merge(instrucao_capacitacao_sent)
+            session.merge(instrucaoCapacitacaoSent)
             session.commit()
             session.expunge_all()
             session.close()
@@ -42,15 +42,15 @@ class InstrucaoCapacitacaoRepository:
         finally:
             session.close()
 
-        return instrucao_capacitacao_sent
+        return instrucaoCapacitacaoSent
 
-    def delete_by_id(self, instrucao_id: int) -> None:
+    def delete_by_id(self, instrucaoId: int) -> None:
         """Deleta uma instrução de capacitação dado o seu id"""
         session = self.database()
 
         response = (
             session.query(InstrucaoCapacitacao)
-            .filter(InstrucaoCapacitacao.id == instrucao_id)
+            .filter(InstrucaoCapacitacao.id == instrucaoId)
             .first()
         )
 
@@ -67,13 +67,10 @@ class InstrucaoCapacitacaoRepository:
         session.close()
         return res
 
-    def find_by_id(self, instrucao_capacitacao_id: int) -> InstrucaoCapacitacao | None:
+    def find_by_id(self, instrucaoCapacitacao_id: int) -> InstrucaoCapacitacao | None:
         """Faz uma busca pelo id no banco e retorna o objeto"""
         session = self.database()
         session.close()
-16-Arrumando-CodeSmells
-        return session.query(InstrucaoCapacitacao).filter(InstrucaoCapacitacao.id == instrucao_capacitacao_id).first()
-
         return session.query(InstrucaoCapacitacao).filter(InstrucaoCapacitacao.id == instrucaoCapacitacao_id).first()
     
     def find_by_id_curso(self, instrucaoCapacitacao_curso: int) -> list[InstrucaoCapacitacao]:

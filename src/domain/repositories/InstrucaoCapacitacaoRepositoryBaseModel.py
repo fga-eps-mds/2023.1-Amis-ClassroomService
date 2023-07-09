@@ -7,7 +7,7 @@ from sqlalchemy.orm import Session
 @runtime_checkable
 class InstrucaoCapacitacaoRepositoryBaseModel(Protocol):
     def save(
-        self, instrucao_capacitacao_sent: InstrucaoCapacitacao
+        self, instrucaoCapacitacaoSent: InstrucaoCapacitacao
     ) -> InstrucaoCapacitacao | None:
         "Salva uma instrução de capacitação no banco de dados"
         ...
@@ -16,17 +16,15 @@ class InstrucaoCapacitacaoRepositoryBaseModel(Protocol):
         ...
 
     def update(
-        self, instrucao_capacitacao_sent: InstrucaoCapacitacao
+        self, instrucaoCapacitacaoSent: InstrucaoCapacitacao
     ) -> InstrucaoCapacitacao | None:
         "Atualiza uma instrução de capacitação no banco de dados"
         ...
 
-    def delete_by_id(self, instrucao_id: int) -> NoReturn:
+    def delete_by_id(self, instrucaoId: int) -> NoReturn:
         "Deleta uma instrução dado seu ID"
         ...
         
-16-Arrumando-CodeSmells
-    def find_by_id(self, instrucao_capacitacao_id: int) -> InstrucaoCapacitacao | None:
     def find_by_id(self, instrucaoCapacitacao_curso: int) -> InstrucaoCapacitacao | None:
         ...
 
