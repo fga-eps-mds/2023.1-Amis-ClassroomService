@@ -12,7 +12,7 @@ class ClassRoomDB(Base):
     __tablename__= "classRoom"
     #__table_args__ = {"extend_existing": True}
         
-    codigo: int = Column(Integer, primary_key= True , nullable= False)
+    codigo: int = Column(Integer, primary_key= True , nullable= False, index=True)
     nome_turma: str = Column(String(70), nullable= False)
     data_inicio: str= Column(String(10), nullable= False)
     data_fim: str= Column(String(10), nullable= False)
@@ -25,7 +25,6 @@ class ClassRoomDB(Base):
     
 
 class ClassRoomBase(BaseModel):
-    codigo:int
     nome_turma: str
     data_inicio: str
     data_fim: str
@@ -46,7 +45,7 @@ class ClassRoomRequest(ClassRoomBase):
 
 class ClassRoomResponse(ClassRoomBase):
     '''...'''
-    #codigo:int  # tirar se for pra inserir
+    codigo:int  # tirar se for pra inserir
     class Config:
         orm_mode = True
 
