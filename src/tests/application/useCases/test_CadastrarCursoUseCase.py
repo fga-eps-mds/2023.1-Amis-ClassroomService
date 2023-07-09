@@ -69,11 +69,11 @@ def test_save_curso_valido(curso_sent):
 def test_curso_find_all_ja_cadastrados():
     response = curso_use_case.find_all()
     response = [r.__dict__ for r in response]
-    sorted(response, key=lambda x: x['id'])
-    print(response)
+    sorted_response = sorted(response, key=lambda x: x['id'])
+    print(sorted_response)
 
     expected = [r.__dict__ for r in test_list]
-    sorted(expected, key=lambda x: x['id'])
-    print(expected)
+    sorted_expected = sorted(expected, key=lambda x: x['id'])
+    print(sorted_expected)
 
     assert len(response) == len(test_list), response
