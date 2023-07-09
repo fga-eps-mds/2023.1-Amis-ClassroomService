@@ -24,8 +24,8 @@ router_classRoom = APIRouter(
 
 #Funfando
 @router_classRoom.post("/", status_code=status.HTTP_201_CREATED)
-def create_classRoom(class_request: ClassRoomRequest ,database: Session = Depends(get_db)):
-    fieldsValidation = classUseCase.validate_classRoom(class_request)
+def create_classroom(class_request: ClassRoomRequest ,database: Session = Depends(get_db)):
+    
    
     class_entitie = ClassRoomDB(**class_request.dict())
     classUseCase.save_class(classSent=class_entitie)
@@ -34,14 +34,14 @@ def create_classRoom(class_request: ClassRoomRequest ,database: Session = Depend
 
 ## Funfando
 @router_classRoom.get("/", response_model= list[ClassRoomBase])
-def find_all_classRoom():
+def find_all_classroom():
     classRoomFind = classUseCase.find_all_class()
     return classRoomFind
 
 
 ##Funfando
 @router_classRoom.get("/{codigo}",response_model= ClassRoomResponse, status_code= status.HTTP_200_OK)
-def find_classRoom_codigo(codigo : int ):
+def find_classroom_codigo(codigo : int ):
     classRoom = classUseCase.find_classRoom_codigo(codigo)
     
     if not classRoom:
@@ -53,18 +53,18 @@ def find_classRoom_codigo(codigo : int ):
 
 
 @router_classRoom.put("/{codigo}", status_code=status.HTTP_201_CREATED)
-def update_classRoom(classSent : ClassRoomRequestCodigo):
-    if classUseCase.find_classRoom_codigo(classSent.codigo) is None:
+def update_classroom(class_sent : ClassRoomRequestCodigo):
+    if classUseCase.find_classRoom_codigo(class_sent.codigo) is None:
         raise HTTPException(status.HTTP_404_NOT_FOUND, 
                             detail = "Turma não encontrada")
-    classUseCase.update_classRoom(classSent)
+    classUseCase.update_classRoom(class_sent)
 
 
 
 @router_classRoom.delete("/{codigo}", status_code=status.HTTP_204_NO_CONTENT)
-def delete_classRoom_codigo(codigo:int):
-    classRoom = classUseCase.find_classRoom_codigo(codigo)
-    if classRoom is None:
+def delete_classroom_codigo(codigo:int):
+    classroom = classUseCase.find_classRoom_codigo(codigo)
+    if classroom is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail="Turma não encontrada" )
     
