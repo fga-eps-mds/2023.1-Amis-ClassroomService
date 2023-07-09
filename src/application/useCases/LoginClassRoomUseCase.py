@@ -19,6 +19,7 @@ class ClassRoomUseCase():
         class_romns = []
         for class_i_db in class_room_db:
             classRoom = ClassRoomResponse(
+ 16-Arrumando-CodeSmells
                 codigo = class_i_db.codigo,
                 nome_turma = class_i_db.nome_turma,
                 data_inicio = class_i_db.data_inicio,
@@ -29,6 +30,17 @@ class ClassRoomUseCase():
                 fk_curso = class_i_db.fk_curso,
                 fk_professor = class_i_db.fk_professor,
                 descricao = class_i_db.descricao
+
+                codigo = classI_db.codigo,
+                nome_turma = classI_db.nome_turma,
+                data_inicio = classI_db.data_inicio,
+                data_fim = classI_db.data_fim,
+                inicio_aula = classI_db.inicio_aula,
+                fim_aula = classI_db.fim_aula, 
+                capacidade_turma= classI_db.capacidade_turma,
+                fk_curso = classI_db.fk_curso,
+                fk_professor = classI_db.fk_professor,
+                descricao= classI_db.descricao 
             )
             class_romns.append(classRoom)
         return class_romns 

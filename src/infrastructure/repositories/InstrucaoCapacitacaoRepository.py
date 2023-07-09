@@ -71,7 +71,17 @@ class InstrucaoCapacitacaoRepository:
         """Faz uma busca pelo id no banco e retorna o objeto"""
         session = self.database()
         session.close()
+16-Arrumando-CodeSmells
         return session.query(InstrucaoCapacitacao).filter(InstrucaoCapacitacao.id == instrucao_capacitacao_id).first()
+
+        return session.query(InstrucaoCapacitacao).filter(InstrucaoCapacitacao.id == instrucaoCapacitacao_id).first()
+    
+    def find_by_id_curso(self, instrucaoCapacitacao_curso: int) -> list[InstrucaoCapacitacao]:
+        """Faz uma busca pelo id no banco e retorna o objeto"""
+        session = self.database()
+        session.close()
+        return session.query(InstrucaoCapacitacao).filter(InstrucaoCapacitacao.idCurso == instrucaoCapacitacao_curso).all()
+
 
 assert isinstance(
     InstrucaoCapacitacaoRepository({}),
