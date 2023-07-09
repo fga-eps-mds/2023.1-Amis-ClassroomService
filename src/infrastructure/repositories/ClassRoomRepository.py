@@ -10,14 +10,14 @@ class ClassRoomRepository:
     def __init__(self,session:Callable[[],Session]):
         self.database = session 
 
-    def save_class(self,classSent: ClassRoomDB ) -> ClassRoomDB:
+    def save_class(self,class_sent: ClassRoomDB ) -> ClassRoomDB:
         session = self.database()
 
-        session.add(classSent)
+        session.add(class_sent)
         session.commit()
         session.expunge_all()
         session.close()
-        return classSent
+        return class_sent
     
     def find_all_class(self) -> list[ClassRoomDB]:
 
@@ -26,59 +26,59 @@ class ClassRoomRepository:
         session.close()
         return res
 
-    def find_classRoom_codigo(self, codigo:int)-> ClassRoomDB | None:
+    def find_class_room_codigo(self, codigo:int)-> ClassRoomDB | None:
         session = self.database()
         return session.query(ClassRoomDB).filter(ClassRoomDB.codigo == codigo).first()
 
 
-    def update_classRoom(self, classSent: ClassRoomDB)-> NoReturn:
+    def update_class_room(self, class_sent: ClassRoomDB)-> NoReturn:
         session = self.database()
-        session.merge(classSent)
+        session.merge(class_sent)
         session.commit()
         session.expunge_all()
         session.close()
 
 
-    def delete_classRoom_codigo(self, codigo:int)-> NoReturn:
+    def delete_class_room_codigo(self, codigo:int)-> NoReturn:
         session = self.database()
-        classRoomSession = session.query(ClassRoomDB).filter(ClassRoomDB.codigo == codigo).first()
+        class_room_session = session.query(ClassRoomDB).filter(ClassRoomDB.codigo == codigo).first()
 
-        if classRoomSession is not None:
-            session.delete(classRoomSession)
+        if class_room_session is not None:
+            session.delete(class_room_session)
             session.commit()
         session.close()
         
             
 
-    def validate_classRoom(self, classRoom: ClassRoomDB) -> dict:
-        fieldInfoDict = {}
-        fieldInfoDict["nomeTurma"] = vars(FieldValidation.nomeTurmaValidation(
+    def validate_class_room(self, classRoom: ClassRoomDB) -> dict:
+        field_info_dict = {}
+        field_info_dict["nomeTurma"] = vars(FieldValidation.nomeTurmaValidation(
             classRoom.nome_turma
         ))
-        fieldInfoDict["dataInicio"] = vars(FieldValidation.data_inicio(
+        field_info_dict["dataInicio"] = vars(FieldValidation.data_inicio(
             classRoom.data_inicio
         ))
-        fieldInfoDict["dataFim"] = vars(FieldValidation.data_fim(
+        field_info_dict["dataFim"] = vars(FieldValidation.data_fim(
             classRoom.data_fim
         ))
-        fieldInfoDict["inicioAula"] = vars(FieldValidation.inicioAulaValidation(
+        field_info_dict["inicioAula"] = vars(FieldValidation.inicioAulaValidation(
             classRoom.inicio_aula
         ))
-        fieldInfoDict["fimAula"] = vars(FieldValidation.fimAulaValidation(
+        field_info_dict["fimAula"] = vars(FieldValidation.fimAulaValidation(
             classRoom.fim_aula
         ))
-        fieldInfoDict["Professor"] = vars(FieldValidation.professorValidation(
+        field_info_dict["Professor"] = vars(FieldValidation.professorValidation(
             classRoom.fk_professor
         ))
         
-        completeStatus = True
-        for key in fieldInfoDict:
-            if fieldInfoDict[key]['status'] == False:
-                completeStatus = False
+        complete_status = True
+        for key in field_info_dict:
+            if field_info_dict[key]['status'] == False:
+                complete_status = False
                 break
-        fieldInfoDict['completeStatus'] == completeStatus    
+        field_info_dict['complete_status'] == complete_status    
 
-        return fieldInfoDict
+        return field_info_dict
         
 assert isinstance(ClassRoomRepository(
     {}), ClassRoomRepositoryBaseModel.ClassRoomRepositoryBaseModel)    
